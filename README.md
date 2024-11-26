@@ -22,6 +22,6 @@ Repositório para desenvolvimento do jogo Adventure Quest World da disciplina de
 
 - Módulo 1
   - [DER](./Modulo_1/DER(Diagrama_Entidade_Relacionamento).png)
-  - [MER](./Modulo_1/ME-R (Modelo Entidade-Relacionamento).md)
+  - [MER](./Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)
   - [Dicionário de Dados](./Modulo_1/0DD(Dicinario_de_Dados).md)
 
