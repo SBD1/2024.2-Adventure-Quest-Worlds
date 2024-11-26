@@ -1,5 +1,7 @@
-# 2024.2-Adventure-Tigrinho-World
-Repositório para desenvolvimento do jogo Adventure Tigrinho World da disciplina de SBD1 - 2024.2
+# 2024.2-Adventure-Quest-World
+Repositório para desenvolvimento do jogo Adventure Quest World da disciplina de SBD1 - 2024.2
+
+![aqw](./aqw.jpg)
 
 ## Integrantes da equipe
 
@@ -19,7 +21,7 @@ Repositório para desenvolvimento do jogo Adventure Tigrinho World da disciplina
 ## Entregas
 
 - Módulo 1
-  - [DER](./Modulo_1/)
-  - [MER](./Modulo_1/)
-  - [Dicionário de Dados](./Modulo_1/)
+  - [DER](./Modulo_1/DER(Diagrama_Entidade_Relacionamento).png)
+  - [MER](./Modulo_1/ME-R (Modelo Entidade-Relacionamento).md)
+  - [Dicionário de Dados](./Modulo_1/0DD(Dicinario_de_Dados).md)
 
