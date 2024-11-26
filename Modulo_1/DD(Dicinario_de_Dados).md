@@ -104,7 +104,7 @@
 |---------------|----------|------------------------------------|
 | idItem        | Inteiro  | Identificador único do item.       |
 | nomeDoItem    | Texto    | Nome do item.                     |
-| custoDeOuro   | Decimal  | Custo do item em ouro.            |
+| custoDeOuro   | Inteiro  | Custo do item em ouro.            |
 | equipavel     | Booleano | Indica se o item é equipável.     |
 
 ---

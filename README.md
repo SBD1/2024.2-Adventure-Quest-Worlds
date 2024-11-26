@@ -16,7 +16,7 @@ Repositório para desenvolvimento do jogo Adventure Quest World da disciplina de
 
 | Módulo         | Link da gravação       | Data |
 |----------------|------------------------|------|
-| 1              | [Apresentação Módulo 1]() | 25/11/2024 |
+| 1              | [Apresentação Módulo 1](https://youtu.be/rttzNn9oLz4) | 25/11/2024 |
 
 ## Entregas
 
