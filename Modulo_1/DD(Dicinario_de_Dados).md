@@ -46,7 +46,7 @@
 |------------|----------|-------------------------------------|
 | idItem     | Inteiro  | Identificador único do item.        |
 | idLoja     | Inteiro  | Loja onde o item está disponível.   |
-| preço      | Decimal  | Preço do item.                     |
+| preço      | Inteiro  | Preço do item.                     |
 | quantidade | Inteiro  | Quantidade disponível no estoque.   |
 
 ---
