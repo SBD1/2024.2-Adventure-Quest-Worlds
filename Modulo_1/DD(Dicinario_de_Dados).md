@@ -3,246 +3,166 @@
 ---
 
 ### **Player**
-#### Descrição: Player é a uma entidade que descreve as caracterísitcas de todo o player dentro do jogo
-#### Observações: Player possui a chave estrangeira: `idSala`
-
-| Nome Variável |     Tipo     |           Descrição           | Restrição |   Chave   |
-| :-----------: | :----------: | :--------------------------: | :-------: | :-----: |
-|   idJogador   |     int      | Identificador único do jogador |     NOT NULL     |    PK    |
-|    idSala     |     int      | Sala atual onde o jogador está |     NOT NULL     |    FK    |
-|     nome      | varchar[30]   |        Nome do jogador         |     NOT NULL     |    -    |
-|      HP       |     int      |    Pontos de vida do jogador   |     NOT NULL     |    -    |
-|     Mana      |     int      |    Pontos de mana do jogador   |     NOT NULL     |    -    |
-|      Def      |     int      |       Defesa do jogador        |     NOT NULL     |    -    |
-|      Atk      |     int      |  Ataque físico do jogador      |     NOT NULL     |    -    |
-|     Atkmg     |     int      |  Ataque mágico do jogador      |     NOT NULL     |    -    |
-|     Ouro      |     int      | Quantidade de ouro do jogador  |     NOT NULL     |    -    |
-|   armadura    |     int      | Equipamento de defesa do jogador |   NULL     |    -    |
-|     arma      |     int      | Equipamento de ataque do jogador |   NULL     |    -    |
-|   insignia    |     int      |     Item especial do jogador   |     NULL     |    -    |
-
-
+| Atributo     | Tipo     | Descrição                           |
+|--------------|----------|-------------------------------------|
+| idJogador    | Inteiro  | Identificador único do jogador.     |
+| nome         | Texto    | Nome do jogador.                   |
+| HP           | Inteiro  | Pontos de vida do jogador.          |
+| Mana         | Inteiro  | Pontos de mana do jogador.          |
+| Def          | Inteiro  | Defesa do jogador.                 |
+| Atk          | Inteiro  | Ataque físico do jogador.           |
+| Atkmg        | Inteiro  | Ataque mágico do jogador.           |
+| Ouro         | Inteiro  | Quantidade de ouro do jogador.      |
+| idSala       | Inteiro  | Sala atual onde o jogador está.     |
+| armadura     | Inteiro  | Equipamento de defesa do jogador.   |
+| arma         | Inteiro  | Equipamento de ataque do jogador.   |
+| insignia     | Inteiro  | Item especial do jogador.           |
 
 ---
 
 ### **Classe**
-#### Descrição: Classe é uma entidade que descreve as características base das diferentes classes disponíveis no jogo.
-
-| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
-|   idClasse    |     int      | Identificador único da classe |     NOT NULL     |   PK   |
-|     mana      |     int      |    Pontos de mana base da classe |   NOT NULL     |   -   |
-|      def      |     int      |     Defesa base da classe     |     NOT NULL     |   -   |
-|      atk      |     int      |  Ataque físico base da classe |     NOT NULL     |   -   |
-|     atkmg     |     int      |  Ataque mágico base da classe |     NOT NULL     |   -   |
-
+| Atributo  | Tipo     | Descrição                         |
+|-----------|----------|-----------------------------------|
+| idClasse  | Inteiro  | Identificador único da classe.     |
+| mana      | Inteiro  | Pontos de mana base da classe.     |
+| def       | Inteiro  | Defesa base da classe.             |
+| atk       | Inteiro  | Ataque físico base da classe.      |
+| atkmg     | Inteiro  | Ataque mágico base da classe.      |
 
 ---
 
 ### **Loja**
-#### Descrição: Loja é uma entidade que descreve as características das lojas disponíveis no jogo, incluindo sua localização e identificação única.
-
-#### Observações: Loja possui as chaves estrangeiras: `idSala` e `idAndar`.
-
-| Nome Variável |     Tipo     |               Descrição              | Restrição | Chave |
-| :-----------: | :----------: | :---------------------------------: | :-------: | :---: |
-|    idLoja     |     int      |   Identificador único da loja        |     NOT NULL     |   PK   |
-|    idSala     |     int      | Sala onde a loja está localizada     |     NOT NULL     |   FK   |
-|   idAndar     |     int      | Andar onde a loja está localizada    |     NOT NULL     |   FK   |
-|     nome      | varchar[30]   |            Nome da loja              |     NOT NULL     |   -   |
-
+| Atributo  | Tipo     | Descrição                         |
+|-----------|----------|-----------------------------------|
+| idLoja    | Inteiro  | Identificador único da loja.       |
+| nome      | Texto    | Nome da loja.                     |
+| idSala    | Inteiro  | Sala onde a loja está localizada.  |
+| idAndar   | Inteiro  | Andar onde a loja está localizada. |
 
 ---
 
 ### **EstoqueItem**
-#### Descrição: EstoqueItem é uma entidade que descreve os itens disponíveis em estoque nas lojas, incluindo o preço e a quantidade disponível.
-
-#### Observações: EstoqueItem possui as chaves estrangeiras: `idItem` e `idLoja`.
-
-| Nome Variável |     Tipo     |             Descrição            | Restrição | Chave |
-| :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
-|    idItem     |     int      |   Identificador único do item    |     NOT NULL     |   FK   |
-|    idLoja     |     int      | Loja onde o item está disponível |     NOT NULL     |   FK   |
-|     preço     |     int      |          Preço do item           |     NOT NULL     |   -   |
-|  quantidade   |     int      | Quantidade disponível no estoque |     NOT NULL     |   -   |
+| Atributo   | Tipo     | Descrição                           |
+|------------|----------|-------------------------------------|
+| idItem     | Inteiro  | Identificador único do item.        |
+| idLoja     | Inteiro  | Loja onde o item está disponível.   |
+| preço      | Inteiro  | Preço do item.                     |
+| quantidade | Inteiro  | Quantidade disponível no estoque.   |
 
 ---
 
 ### **Habilidade**
-#### Descrição: Habilidade é uma entidade que descreve as características das habilidades disponíveis no jogo, incluindo seu custo de mana, dano, tempo de recarga e tipo de dano.
-
-#### Observações: Habilidade possui a chave estrangeira: `idClasse`.
-
-| Nome Variável  |     Tipo     |               Descrição               | Restrição | Chave |
-| :------------: | :----------: | :----------------------------------: | :-------: | :---: |
-|  idHabilidade  |     int      | Identificador único da habilidade     |     NOT NULL     |   PK   |
-|    idClasse    |     int      |   Classe que possui essa habilidade   |     NOT NULL     |   FK   |
-|      nome      | varchar[30]   |           Nome da habilidade          |    NOT NULL     |   -   |
-|  custoDeMana   |     int      | Custo de mana para usar a habilidade  |     NOT NULL     |   -   |
-|      dano      |     int      |       Dano causado pela habilidade    |     NOT NULL     |   -   |
-|    cooldown    |     int      |     Tempo de recarga da habilidade    |     NOT NULL     |   -   |
-|   tipodedano   | bool   | Tipo de dano da habilidade (físico 'f'/ mágico 'm') |   NOT NULL     |   -   |
+| Atributo     | Tipo     | Descrição                              |
+|--------------|----------|----------------------------------------|
+| idHabilidade | Inteiro  | Identificador único da habilidade.      |
+| nome         | Texto    | Nome da habilidade.                   |
+| idClasse     | Inteiro  | Classe que possui essa habilidade.     |
+| custoDeMana  | Inteiro  | Custo de mana para usar a habilidade.   |
+| dano         | Inteiro  | Dano causado pela habilidade.          |
+| cooldown     | Inteiro  | Tempo de recarga da habilidade.        |
+| tipodedano   | Texto    | Tipo de dano da habilidade (físico/mágico). |
 
 ---
 
 ### **Inventário**
-#### Descrição: Inventário é uma entidade que descreve os itens armazenados por um jogador, incluindo espaço disponível e a possibilidade de os itens serem equipáveis.
-
-#### Observações: Inventário possui as chaves estrangeiras: `idJogador` e `idInstanciaItem`.
-
-| Nome Variável     |     Tipo     |             Descrição             | Restrição | Chave |
-| :---------------: | :----------: | :-------------------------------: | :-------: | :---: |
-|    idJogador      |     int      |       Jogador dono do inventário   |     NOT NULL     |   FK   |
-|  idInstanciaItem  |     int      |      Item associado ao inventário  |     NOT NULL     |   FK   |
-|      espaço       |     int      |     Espaço disponível no inventário |     NOT NULL     |   -   |
-|     equipavel     |     bool     |    Indica se o item é equipável (equipavel 'e' / nao equipavel 'n')    |     NOT NULL     |   -   |
-
+| Atributo         | Tipo     | Descrição                          |
+|------------------|----------|------------------------------------|
+| idJogador        | Inteiro  | Jogador dono do inventário.         |
+| espaço           | Inteiro  | Espaço disponível no inventário.   |
+| idInstanciaItem  | Inteiro  | Item associado ao inventário.      |
+| equipavel        | Booleano | Indica se o item é equipável.      |
 
 ---
 
 ### **Andar**
-#### Descrição: Andar é uma entidade que descreve os andares disponíveis no jogo, incluindo sua identificação única e nome.
-
-| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
-|    idAndar    |     int      | Identificador único do andar  |     NOT NULL     |   PK   |
-|     nome      | varchar[30]   |           Nome do andar        |     NOT NULL     |   -   |
+| Atributo  | Tipo     | Descrição                |
+|-----------|----------|--------------------------|
+| idAndar   | Inteiro  | Identificador único do andar. |
+| nome      | Texto    | Nome do andar.           |
 
 ---
 
 ### **Sala**
-#### Descrição: Sala é uma entidade que descreve as salas disponíveis no jogo, incluindo sua identificação única, localização no andar e uma descrição detalhada.
-
-#### Observações: Sala possui a chave estrangeira: `idAndar`.
-
-| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
-|    idSala     |     int      | Identificador único da sala   |  NOT NULL |   PK   |
-|    idAndar    |     int      |     Andar onde a sala está    |  NOT NULL |   FK   |
-|   descrição   | varchar[200]   |        Descrição da sala      |  NOT NULL |   -   |
-
-
----
-
-### **Item**
-#### Descrição: Item é uma entidade que descreve os itens disponíveis no jogo, incluindo suas características básicas como nome, custo em ouro e se são equipáveis.
-
-| Nome Variável  |     Tipo     |             Descrição             | Restrição | Chave |
-| :------------: | :----------: | :-------------------------------: | :-------: | :---: |
-|     idItem     |     int      |     Identificador único do item    |  NOT NULL |   PK   |
-|  nomeDoItem    | varchar[30]   |            Nome do item            |  NOT NULL |   -   |
-|  custoDeOuro   |     int      |       Custo do item em ouro        |  NOT NULL |   -   |
-|   equipavel    |     bool     |      Indica se o item é equipável  |  NOT NULL |   -   |
-
+| Atributo  | Tipo     | Descrição                |
+|-----------|----------|--------------------------|
+| idSala    | Inteiro  | Identificador único da sala. |
+| idAndar   | Inteiro  | Andar onde a sala está.  |
+| descrição | Texto    | Descrição da sala.       |
 
 ---
 
 ### **Instância do Item**
-#### Descrição: Instância do Item é uma entidade que descreve cada instância única de um item no jogo, associando-a ao item correspondente.
+| Atributo        | Tipo     | Descrição                    |
+|-----------------|----------|------------------------------|
+| idInstanciaItem | Inteiro  | Identificador único da instância do item. |
+| idItem          | Inteiro  | Item associado à instância.   |
 
-#### Observações: Instância do Item possui a chave estrangeira: `idItem`.
+---
 
-| Nome Variável     |     Tipo     |                  Descrição                  | Restrição | Chave |
-| :---------------: | :----------: | :----------------------------------------: | :-------: | :---: |
-|  idInstanciaItem  |     int      | Identificador único da instância do item   |  NOT NULL |   PK   |
-|      idItem       |     int      |         Item associado à instância         |  NOT NULL |   FK   |
-
-
+### **Item**
+| Atributo      | Tipo     | Descrição                          |
+|---------------|----------|------------------------------------|
+| idItem        | Inteiro  | Identificador único do item.       |
+| nomeDoItem    | Texto    | Nome do item.                     |
+| custoDeOuro   | Inteiro  | Custo do item em ouro.            |
+| equipavel     | Booleano | Indica se o item é equipável.     |
 
 ---
 
 ### **Consumível**
-#### Descrição: Consumível é uma entidade que descreve os itens consumíveis no jogo, detalhando os pontos de HP ou mana que podem ser restaurados ao utilizá-los.
-
-#### Observações: Consumível possui a chave estrangeira: `idItem`.
-
-| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
-|    idItem     |     int      |   Identificador único do item |  NOT NULL |   FK   |
-|    maisHp     |     int      |    Pontos de HP restaurados   |  NULL |   -   |
-|   maisMana    |     int      |   Pontos de mana restaurados  |  NULL |   -   |
-
+| Atributo  | Tipo     | Descrição                      |
+|-----------|----------|--------------------------------|
+| idItem    | Inteiro  | Identificador único do item.   |
+| maisHp    | Inteiro  | Pontos de HP restaurados.      |
+| maisMana  | Inteiro  | Pontos de mana restaurados.    |
 
 ---
 
 ### **Equipável**
-#### Descrição: Equipável é uma entidade que descreve os itens equipáveis no jogo, especificando os atributos que podem ser melhorados, como defesa, ataque físico, ataque mágico e mana, além do tipo de equipamento.
+| Atributo  | Tipo     | Descrição                          |
+|-----------|----------|------------------------------------|
+| idItem    | Inteiro  | Identificador único do item.       |
+| tipo      | Texto    | Tipo de equipamento (armadura, arma). |
+| maisDef   | Inteiro  | Aumento de defesa.                |
+| maisAtk   | Inteiro  | Aumento de ataque físico.         |
+| maisAtkmg | Inteiro  | Aumento de ataque mágico.         |
+| maisMana  | Inteiro  | Aumento de mana.                 |
 
-#### Observações: Equipável possui a chave estrangeira: `idItem`.
+---
 
-| Nome Variável |     Tipo     |               Descrição               | Restrição | Chave |
-| :-----------: | :----------: | :----------------------------------: | :-------: | :---: |
-|    idItem     |     int      |   Identificador único do item         |  NOT NULL |   FK   |
-|     tipo      | bool   | Tipo de equipamento (armadura 'a' / arma(weapon)'w')  |  NOT NULL |   -   |
-|    maisDef    |     int      |         Aumento de defesa             |  NULL |   -   |
-|    maisAtk    |     int      |    Aumento de ataque físico           |  NULL |   -   |
-|   maisAtkmg   |     int      |    Aumento de ataque mágico           |  NULL |   -   |
-|   maisMana    |     int      |          Aumento de mana              |  NULL |   -   |
-
+### **Instância do Monstro**
+| Atributo    | Tipo     | Descrição                          |
+|-------------|----------|------------------------------------|
+| idMonstro   | Inteiro  | Identificador único do monstro.    |
+| quantidade  | Inteiro  | Quantidade de instâncias do monstro. |
 
 ---
 
 ### **Monstro**
-#### Descrição: Monstro é uma entidade que descreve as características dos monstros no jogo, incluindo seus atributos como pontos de vida, defesa, ataque físico, ataque mágico, recompensa em ouro e seu tipo (Minion ou Boss).
-
-| Nome Variável |     Tipo     |              Descrição              | Restrição | Chave |
-| :-----------: | :----------: | :--------------------------------: | :-------: | :---: |
-|   idMonstro   |     int      |  Identificador único do monstro     |  NOT NULL |   PK   |
-|      HP       |     int      |      Pontos de vida do monstro      |  NOT NULL |   -   |
-|      Def      |     int      |           Defesa do monstro         |  NOT NULL |   -   |
-|      Atk      |     int      |        Ataque físico do monstro     |  NOT NULL |   -   |
-|     Atkmg     |     int      |        Ataque mágico do monstro     |  NOT NULL |   -   |
-|    qntdOuro   |     int      | Quantidade de ouro ao ser derrotado |  NOT NULL |   -   |
-|     tipo      | bool   |    Tipo de monstro (Minion 'm' / Boss 'b')    |  NOT NULL |   -   |
-
-
-
----
-
-
-### **Instância do Monstro**
-#### Descrição: Instância do Monstro é uma entidade que descreve as ocorrências únicas de monstros no jogo, incluindo a quantidade de instâncias presentes.
-
-#### Observações: Instância do Monstro possui a chave estrangeira: `idMonstro`.
-
-| Nome Variável |     Tipo     |                Descrição               | Restrição | Chave |
-| :-----------: | :----------: | :-----------------------------------: | :-------: | :---: |
-|   idMonstro   |     int      |    Identificador único do monstro      |  NOT NULL |   FK   |
-|  quantidade   |     int      | Quantidade de instâncias do monstro    |  NOT NULL |   -   |
-
+| Atributo   | Tipo     | Descrição                          |
+|------------|----------|------------------------------------|
+| idMonstro  | Inteiro  | Identificador único do monstro.    |
+| HP         | Inteiro  | Pontos de vida do monstro.         |
+| Def        | Inteiro  | Defesa do monstro.                |
+| Atk        | Inteiro  | Ataque físico do monstro.          |
+| Atkmg      | Inteiro  | Ataque mágico do monstro.          |
+| qntdOuro   | Inteiro  | Quantidade de ouro ao ser derrotado. |
+| tipo       | Texto    | Tipo de monstro (Minion/Boss).    |
 
 ---
 
 ### **Minion**
-#### Descrição: Minion é uma entidade que representa um tipo específico de monstro no jogo, identificado de forma única.
-
-#### Observações: Minion possui a chave estrangeira: `idMonstro`.
-
-| Nome Variável | Tipo |              Descrição              | Restrição | Chave |
-| :-----------: | :--: | :--------------------------------: | :-------: | :---: |
-|   idMonstro   | int  |  Identificador único do monstro     |  NOT NULL |   FK   |
-
+| Atributo   | Tipo     | Descrição                          |
+|------------|----------|------------------------------------|
+| idMonstro  | Inteiro  | Identificador único do monstro.    |
 
 ---
 
 ### **Boss**
-#### Descrição: Boss é uma entidade que representa os chefes no jogo, detalhando seu item de recompensa (drop) e uma descrição única.
-
-#### Observações: Boss possui as chaves estrangeiras: `idMonstro` e `idItem`.
-
-| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
-|   idMonstro   |     int      |  Identificador único do monstro |  NOT NULL |   FK   |
-|    idItem     |     int      |      Item dropado pelo boss    |  NOT NULL |   FK   |
-|   descrição   | varchar[ ]   |       Descrição do boss        |  NOT NULL |   -   |
-
+| Atributo   | Tipo     | Descrição                          |
+|------------|----------|------------------------------------|
+| idMonstro  | Inteiro  | Identificador único do monstro.    |
+| descrição  | Texto    | Descrição do boss.                |
+| idItem     | Inteiro  | Item dropado pelo boss.           |
 
 --- 
-
-
-## 
-| Versão |    Data    | Descrição               | Autor                                                                                                                 |
-| :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `1.0`  | 26/11/2024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |
-| `1.1`  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
-
