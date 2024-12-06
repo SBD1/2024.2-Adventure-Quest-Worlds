@@ -166,3 +166,8 @@
 | idItem     | Inteiro  | Item dropado pelo boss.           |
 
 --- 
+
+## 
+| Versão |    Data    | Descrição               | Autor                                                                                                                 |
+| :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`1.0`](/Modulo_1/DD(Dicinario_de_Dados).md)  | 26/11/2024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |

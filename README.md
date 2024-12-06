@@ -21,7 +21,9 @@ Repositório para desenvolvimento do jogo Adventure Quest World da disciplina de
 ## Entregas
 
 - Módulo 1
-  - [DER](./Modulo_1/DER(Diagrama_Entidade_Relacionamento).png)
-  - [MER](./Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)
-  - [Dicionário de Dados](./Modulo_1/0DD(Dicinario_de_Dados).md)
+  - [DER(Diagrama Entidade Relacionamento)](./Modulo_1/DER(Diagrama_Entidade_Relacionamento).png)
+  - [ME-R(Modelo Entidade Relacionamento)](./Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)
+  - [DD(Dicinario de Dados)](./Modulo_1/DD(Dicinario_de_Dados).md)
+- Módulo 2
+  - [DD(Dicinario de Dados)](./Modulo_2/DD(Dicinario_de_Dados)_v1.1.md)
 

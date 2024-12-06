@@ -141,3 +141,10 @@
 * Uma Instancia de monstro dropa no mínimo 0 e no máximo 1 Instancia de item.
 * A Instancia de item é dropada exatamente por 1 instância de monstro.
 * Cardinalidade: (0:1) (1:1)
+
+---
+
+## 
+| Versão |    Data    | Descrição               | Autor                                                                                                                 |
+| :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`1.0`](/Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)  | 26/11/2024 | Criação do documento ME-R | Todos                       |

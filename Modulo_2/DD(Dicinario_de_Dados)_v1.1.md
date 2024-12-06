@@ -95,7 +95,7 @@
 |    idJogador      |     int      |       Jogador dono do inventário   |     NOT NULL     |   FK   |
 |  idInstanciaItem  |     int      |      Item associado ao inventário  |     NOT NULL     |   FK   |
 |      espaço       |     int      |     Espaço disponível no inventário |     NOT NULL     |   -   |
-|     equipavel     |     bool     |    Indica se o item é equipável (equipavel '0' / nao equipavel '1')    |     NOT NULL     |   -   |
+|     equipavel     |     bool     |    Indica se o item é equipável (nao equipavel '0' / equipavel '1')    |     NOT NULL     |   -   |
 
 
 ---
@@ -132,7 +132,7 @@
 |     idItem     |     int      |     Identificador único do item    |  NOT NULL |   PK   |
 |  nomeDoItem    | varchar[30]   |            Nome do item            |  NOT NULL |   -   |
 |  custoDeOuro   |     int      |       Custo do item em ouro        |  NOT NULL |   -   |
-|   equipavel    |     bool     |      Indica se o item '0' é equipável '1'  |  NOT NULL |   -   |
+|   equipavel    |     bool     |      Indica se o item é equipável (nao equipavel '0' / equipavel '1')   |  NOT NULL |   -   |
 
 
 ---
@@ -243,5 +243,6 @@
 ## 
 | Versão |    Data    | Descrição               | Autor                                                                                                                 |
 | :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `1.0`  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
+| [`1.0`](/Modulo_1/DD(Dicinario_de_Dados).md)  | 26/11/2024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |
+| [`1.1`](/Modulo_2/DD(Dicinario_de_Dados)_v1.1.md)  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
 
