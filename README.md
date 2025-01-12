@@ -12,6 +12,38 @@ Repositório para desenvolvimento do jogo Adventure Quest World da disciplina de
 | Caio Habibe Falcão| [caiohabibe](https://github.com/caiohabibe)| 221021868 |
 | Henrique Quenino  | [henriquecq](https://github.com/henriquecq)            | 221008098 |
 
+## Como executar o projeto
+
+Na raiz do projeto, execute o seguinte comando para criar as variáveis de ambiente:
+
+```bash
+make config
+```
+
+Na raiz do projeto, execute o seguinte comando para subir o banco de dados e o pgAdmin 4:
+
+```bash
+make build
+```
+
+O pgAdmin estará disponível para acesso em `http://localhost:8000`. As credenciais padrão para acesso são:
+
+- Email: `admin@example.com`
+- Senha: `secret`
+
+Certifique-se de que o banco de dados está rodando corretamente e então execute o seguinte comando na diretório `game`:
+
+```bash
+# Criação do ambiente virtual
+python3 -m venv env
+
+# Ativação do ambiente virtual
+source env/bin/activate
+
+# Instalação das dependências
+pip install -r requirements.txt
+```
+
 ## Videos de apresentação
 
 | Módulo         | Link da gravação       | Data |
