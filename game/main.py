@@ -19,16 +19,56 @@ def validar_login(username, password):
             return 1
         else:
             return None
+def sair():
+    print(bye)
+    exit()
+        
+def mover_personagem(conn, cur, personagemId, direcao):
+    cur.execute(f"UPDATE personagem SET idSala = {direcao} WHERE idPersonagem = {personagemId};")
+    conn.commit()
+
+def get_sala(cur, salaAtual):
+    cur.execute(f"SELECT * FROM sala WHERE idSala = {salaAtual};")
+    sala = cur.fetchall()[0]
+    return sala
         
 def iniciar_game(personagemId):
     clear()
 
     conn = get_connection()
-    cur = conn.cursor()
+    cur = conn.cursor(cursor_factory=RealDictCursor)
 
     cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = {personagemId};")
-    current_player = cur.fetchall()[0]
-    print(current_player)
+    personagem_atual = cur.fetchall()[0]
+
+    while True:
+        clear()
+        cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = {personagemId};")
+        personagem_atual = cur.fetchall()[0]
+        sala_info = get_sala(cur, personagem_atual['idsala'])
+        print(f"Você está na sala {sala_info['nomesala']}\n\n")
+        opcoes = {}
+        if sala_info['salanorte']:
+            opcoes['norte'] = 'Mover para o norte'
+        if sala_info['salasul']:
+            opcoes['sul'] = 'Mover para o sul'
+        if sala_info['salaleste']:
+            opcoes['leste'] = 'Mover para o leste'
+        if sala_info['salaoeste']:
+            opcoes['oeste'] = 'Mover para o oeste'
+        
+        
+        print("Opções:")
+        for k,v in opcoes.items():
+            print(f"[{k}] - {v}")
+        
+        print("[0] - Sair do jogo")
+        
+        direcao = input("Digite a direção que deseja ir: ")
+        if direcao == '0':
+            sair()
+        
+        mover_personagem(conn, cur, personagemId, sala_info[f'sala{direcao}'])
 
 def login():
     os.system('clear')
@@ -50,8 +90,7 @@ def login():
             print(100* '-')
         
         elif chosen_option == '0':
-            print(bye)
-            exit()
+            sair()
         
         elif chosen_option == '2':
             username = input("Digite o seu username: ")
