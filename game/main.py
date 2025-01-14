@@ -1,7 +1,11 @@
 import psycopg2
 import os
-from config.database import get_connection, create_tables
+from psycopg2.extras import RealDictCursor
+from config.database import get_connection, create_tables, populate_tables
 from ascii_arts import name, bye
+
+def clear():
+    os.system('clear')
 
 def selecionar_save(userId):
     print(userId)
@@ -15,6 +19,16 @@ def validar_login(username, password):
             return 1
         else:
             return None
+        
+def iniciar_game(personagemId):
+    clear()
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = {personagemId};")
+    current_player = cur.fetchall()[0]
+    print(current_player)
 
 def login():
     os.system('clear')
@@ -62,7 +76,8 @@ def login():
 
 def main():
     userId = login()
-    print(f"Id de usuário {userId}")
+    iniciar_game(1)
+    
 
 if __name__ == "__main__":
     main()
