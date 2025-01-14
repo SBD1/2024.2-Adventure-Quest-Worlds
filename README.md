@@ -28,8 +28,8 @@ make build
 
 O pgAdmin estará disponível para acesso em `http://localhost:8000`. As credenciais padrão para acesso são:
 
-- Email: `admin@example.com`
-- Senha: `secret`
+- Email: `admin@admin.com`
+- Senha: `admin`
 
 Certifique-se de que o banco de dados está rodando corretamente e então execute o seguinte comando na diretório `game`:
 
@@ -47,8 +47,9 @@ pip install -r requirements.txt
 ## Videos de apresentação
 
 | Módulo         | Link da gravação       | Data |
-|----------------|------------------------|------|
+|:--------------:|------------------------|------|
 | 1              | [Apresentação Módulo 1](https://youtu.be/rttzNn9oLz4) | 25/11/2024 |
+| 2              | [Apresentação Módulo 2](link) | 13/01/2025 |
 
 ## Entregas
 

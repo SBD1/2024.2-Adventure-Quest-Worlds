@@ -1,25 +1,68 @@
 import psycopg2
+import os
+from config.database import get_connection, create_tables
+from ascii_arts import name, bye
 
-conn = psycopg2.connect(
-    host="localhost",
-    database="postgres",
-    user="postgres",
-    password="postgres",
-    port=5432
-)
+def selecionar_save(userId):
+    print(userId)
 
-cur = conn.cursor()
+def criar_conta(username, password):
+    return 1
 
-# this is just an example to test the connection it will be removed later
-cur.execute("""
-CREATE TABLE IF NOT EXISTS public.users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL
-);
-""")
+def validar_login(username, password):
+    while True:
+        if username == 'admin' and password == 'admin':
+            return 1
+        else:
+            return None
 
-conn.commit()
+def login():
+    os.system('clear')
+    options = {
+        '1': "Login",
+        '2': "Cadastrar",
+        '0': "Sair"
+    }
+    print(name)
+    print("Seja bem-vindo ao Adventure Quest World!")
+    while True:
+        chosen_option = input("Escolha uma opção:\n[1] - Login\n[2] - Cadastrar\n[0] - Sair\n")
+        if chosen_option not in options:
+            os.system('clear')
+            print(name)
+            print("Seja bem-vindo ao Adventure Quest World!")
+            print(100* '-')
+            print("Opção inválida!")
+            print(100* '-')
+        
+        elif chosen_option == '0':
+            print(bye)
+            exit()
+        
+        elif chosen_option == '2':
+            username = input("Digite o seu username: ")
+            password = input("Digite sua senha: ")
+            userId = criar_conta(username,password)
+            if userId:
+                return userId
+        else:
+            username = input("Digite o seu username: ")
+            password = input("Digite sua senha: ")
+            userId = validar_login(username,password)
+            if userId:
+                return userId
+            else:
+                os.system('clear')
+                print(name)
+                print("Seja bem-vindo ao Adventure Quest World!")
+                print(100* '-')
+                print("Usuário ou senha incorretos.")
+                print(100* '-')
 
-cur.close()
-conn.close()
+
+def main():
+    userId = login()
+    print(f"Id de usuário {userId}")
+
+if __name__ == "__main__":
+    main()
