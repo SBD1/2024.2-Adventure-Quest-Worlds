@@ -8,8 +8,8 @@
 | Nome Variável |     Tipo     |             Descrição           | Restrição | Chave |
 | :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
 |   idUsuario   |     int      | Identificador único do usuário |  NOT NULL |   PK  |
-|      login    | varchar[30]   |  Nome de usuário para login      |  NOT NULL |   -   |
-|     senha     | varchar[30]   | Senha do usuário             |  NOT NULL |   -   |
+|      login    | varchar[20]   |  Nome de usuário para login      |  NOT NULL |   -   |
+|     senha     | varchar[20]   | Senha do usuário             |  NOT NULL |   -   |
 | qtdPersonagem |     int     | Número de personagens do usuário |  NOT NULL |   -   |
 
 ---
@@ -19,7 +19,7 @@
 #### Observações: Um save pertence a um usuário, e um usuario pode ter até 3 saves.
 | Nome Variável |     Tipo     |             Descrição           | Restrição | Chave |
 | :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
-|   idUsuario  |     int      | Identificador do usuário dono do save |  NOT NULL |   PK  |
+|   idUsuario  |     int      | Identificador do usuário dono do save |  NOT NULL |   FK  |
 |   idPersonagem |     int     | Identificador do personagem do save |  NOT NULL |   FK  |
 
 ---
@@ -31,7 +31,7 @@
 | Nome Variável       |     Tipo     |                Descrição             | Restrição | Chave |
 | :------------------: | :----------: | :---------------------------------: | :-------: | :---: |
 |    idPersonagem     |     int      |    Identificador único do personagem  |  NOT NULL |   PK  |
-|      nomePersonagem   | varchar[30]   | Nome do personagem                  |  NOT NULL |   -   |
+|      nomePersonagem   | varchar[20]   | Nome do personagem                  |  NOT NULL |   -   |
 | staminaAtualPersonagem|     int     |   Stamina atual do personagem     |  NOT NULL |   -   |
 |   vidaAtualPersonagem|     int     |   Vida atual do personagem     |  NOT NULL |   -   |
 |staminaBasePersonagem |     int     |   Stamina base do personagem     |  NOT NULL |   -   |
@@ -82,7 +82,7 @@
 | Nome Variável |     Tipo     |         Descrição         | Restrição | Chave |
 | :-----------: | :----------: | :-----------------------: | :-------: | :---: |
 |    idSala     |     int      | Identificador único da sala |  NOT NULL |  PK   |
-|     nomeSala   | varchar[30]   |        Nome da sala         |  NOT NULL |  -   |
+|     nomeSala   | varchar[20]   |        Nome da sala         |  NOT NULL |  -   |
 |    salaNorte  |     int      | Identificador da sala ao norte  |   NULL  |   -   |
 |     salaSul    |     int      | Identificador da sala ao sul   |   NULL   |   -   |
 |    salaLeste    |     int      |  Identificador da sala ao leste  |   NULL   |   -   |
@@ -114,7 +114,7 @@
 | Nome Variável |     Tipo     |          Descrição          | Restrição | Chave |
 | :-----------: | :----------: | :-------------------------: | :-------: | :---: |
 |    idItem     |     int      |   Identificador único do item  |  NOT NULL |   PK  |
-|    nomeItem   | varchar[30]   |         Nome do item           |  NOT NULL |  -   |
+|    nomeItem   | varchar[20]   |         Nome do item           |  NOT NULL |  -   |
 |   valorItem    |     int      |         Valor do item         |  NOT NULL |  -   |
 |    tipoItem   |     int      | Tipo do item (consumivel = 0, equipavel = 1) |  NOT NULL |  -   |
 ---
@@ -147,11 +147,12 @@
 | Nome Variável |     Tipo     |            Descrição          | Restrição | Chave |
 | :-----------: | :----------: | :---------------------------: | :-------: | :---: |
 |   idMonstro   |     int      | Identificador único do monstro|  NOT NULL |   PK  |
-|    nomeMonstro| varchar[30]   |       Nome do monstro        |  NOT NULL |  -   |
+|    nomeMonstro| varchar[20]   |       Nome do monstro        |  NOT NULL |  -   |
 |   vidaMonstro |     int      |       Vida do monstro         |  NOT NULL |   -  |
 |  danoMonstro  |     int      |       Dano do monstro         |  NOT NULL |   -  |
 |  defMonstro  |     int      |       Defesa do monstro        |  NOT NULL |  -   |
-| tipoMonstro|     int      |  Tipo do monstro (minion=0, boss=1) |  NOT NULL |   -  |
+| tipoMonstro|     bool      |  Tipo do monstro (minion=0, boss=1) |  NOT NULL |   -  |
+
 ---
 ### **InstanciaMonstro**
 #### Descrição: Entidade que armazena os dados da instância de um monstro em uma sala.
@@ -160,6 +161,9 @@
 | :-------------------: | :----------: | :--------------------------------: | :-------: | :---: |
 | idInstanciaMonstro  |     int      | Identificador único da instância do monstro|  NOT NULL |  PK   |
 |    vidaAtual     |     int      |     Vida atual do monstro         |  NOT NULL |  -   |
+|    idSala        |     int      | Identificador da sala onde o monstro está |  NOT NULL |  FK  |
+|    idMonstro     |     int      | Identificador do monstro da instância |  NOT NULL |  FK  |
+
 
 ---
 ### **Minion**
@@ -177,6 +181,7 @@
 | :-----------: | :----------: | :--------------------------------: | :-------: | :---: |
 |   idMonstro   |     int      |  Identificador único do monstro     |  NOT NULL |  FK   |
 |   idItem      |     int      | Identificador único do item dropado|  NOT NULL |   FK  |
+|   mulBoss    |    int    | Multiplicador de drop de item      |  NOT NULL |   -  |
 
 ---
 ## Histórico de Versões
@@ -185,5 +190,5 @@
 | :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | [`1.0`](/Modulo_1/DD(Dicinario_de_Dados).md)  | 26/11/2024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |
 | [`1.1`](/Modulo_2/DD(Dicinario_de_Dados)_v1.1.md)  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
-| [`2`](/Modulo_3/DD(Dicinario_de_Dados)_v1.2.md)  | 14/01/2025 | Aplica novas ideias DD         |  [Henrique ](https://github.com/henriquecq)                         |
+| [`2`](/Modulo_2/DD(Dicinario_de_Dados)_v2.md)  | 14/01/2025 | Aplica novas ideias DD         |  [Henrique ](https://github.com/henriquecq)                         |
 

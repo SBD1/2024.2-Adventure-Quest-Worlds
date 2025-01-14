@@ -59,4 +59,7 @@ pip install -r requirements.txt
   - [DD(Dicinario de Dados)](./Modulo_1/DD(Dicinario_de_Dados).md)
 - Módulo 2
   - [DD(Dicinario de Dados)](./Modulo_2/DD(Dicinario_de_Dados)_v1.1.md)
+  - [MER(Modelo Entidade Relacionamento)](./Modulo_2/MER(Modelo_Entidade_Relacionamento)_v2.md)
+  - [DD(Dicinario de Dados)](./Modulo_2/DD(Dicinario_de_Dados)_v2.md)
+  - [DER(Diagrama Entidade Relacionamento)](./Modulo_2/DER(Diagrama_Entidade_Relacionamento)_v2.png)
 
