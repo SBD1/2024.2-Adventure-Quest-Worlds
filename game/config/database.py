@@ -5,7 +5,6 @@ import re
 
 load_dotenv('../.env')
 
-
 def get_connection():
     try:
         conn = psycopg2.connect(
@@ -41,3 +40,25 @@ def create_tables():
             
     except psycopg2.Error as e:
         print(f"Erro ao inicializar as tabelas: {e}")
+
+def populate_tables():
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+
+        with open(os.path.join(os.path.dirname(__file__), 'dml.sql'), 'r') as f:
+            dml = f.read()
+
+            querys = re.sub(r'\n', '', dml.strip()).split(';')
+            for q in querys:
+                if q:
+                    cur.execute(q)
+            
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        print("Tabelas populadas com sucesso.")
+            
+    except psycopg2.Error as e:
+        print(f"Erro ao popular as tabelas: {e}")
