@@ -35,9 +35,9 @@
 
 - **Classe:** idClasse, nomeClasse, mulFisico, mulMagico
 
-- **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem  , vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, AtaqueMagico
+- **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem  , vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, AtaqueMagico, idSala
 
-- **Habilidade:** idHabilidade, nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown
+- **Habilidade:** idHabilidade, nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown, idClasse
 
 - **Inventario:** idInventario, espacoDisponivel, capacidade, quantidadeOuro, idPersonagem *(Verificar)*
 
