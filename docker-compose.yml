@@ -9,6 +9,21 @@ services:
       - postgres-data:/var/lib/postgresql/data
     env_file:
       - ./.env
+  
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: sdb1-pgadmin
+    ports:
+      - 8000:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - db
+    restart: always
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     
 volumes:
   postgres-data:
+  pgadmin-data:
