@@ -49,7 +49,7 @@ pip install -r requirements.txt
 | Módulo         | Link da gravação       | Data |
 |:--------------:|------------------------|------|
 | 1              | [Apresentação Módulo 1](https://youtu.be/rttzNn9oLz4) | 25/11/2024 |
-| 2              | [Apresentação Módulo 2](link) | 13/01/2025 |
+| 2              | [Apresentação Módulo 2](https://youtu.be/mHI9vepULyg) | 13/01/2025 |
 
 ## Entregas
 
