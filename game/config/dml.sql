@@ -4,23 +4,34 @@ INSERT INTO Classe (idClasse, nomeClasse, mulFisico, mulMagico) VALUES
 (3,'Arqueiro', 1.2, 0.8),
 (4,'Assassino', 1.3, 0.9);
 
-INSERT INTO Sala (idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste) VALUES
-(1,'Entrada', NULL, 2, 3, NULL),
-(2,'Corredor', 1, 4, NULL, NULL),
-(3,'Sala do Boss', 1, NULL, 4, NULL),
-(4,'Caverna', 2, NULL, NULL, NULL);
+INSERT INTO Sala (idSala, idRegiao, nomeSala, salaNorte, salaSul, salaLeste, salaOeste) VALUES
+(1, 1, 'Arcangrove', NULL, NULL, NULL, 2),
+(2, 1, 'The Cloister', 3, NULL, 1, NULL),
+(3, 1, 'Mudluk Village', 4, 2, NULL, NULL),
+(4, 1, 'Natatorium', NULL, 3, 5, NULL),
+(5, 1, 'Ruins of Great Gilead', NULL, 6, NULL, 4),
+(6, 1, 'Mount Mafic', 5, 7, NULL, NULL),
+(7, 1, 'Elemental', 6, 8, 9, NULL),
+(8, 2, 'Ledgermayne', 7, NULL, 9, NULL),
+(9, 2, 'Boss', NULL, 8, NULL, 7);
+
 
 INSERT INTO Monstro (idMonstro,tipoMonstro) VALUES
 (1,'Minion'),
 (2,'Minion'),
 (3,'Minion'),
-(4,'Boss'),
-(5,'Boss');
+(4,'Minion'),
+(5,'Minion');
 
-INSERT INTO Minion (idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro) VALUES
-(1, 'Goblin', 50, 10, 5, 20),
-(2, 'Esqueleto', 70, 15, 7, 30),
-(3, 'Lobo', 40, 12, 4, 25);
+INSERT INTO Regiao (idRegiao, nomeRegiao, descricaoRegiao) VALUES
+(1,'Arcangrove','A beautiful, thriving forest home to many creatures of magical descent. Ancient magi have studied in the notable Tower of Magic, a place where magic users shall learn, evolve, and be tested.'),
+(2,'Montanha','Região de montanha com muitas pedras e cavernas');
+
+INSERT INTO Minion (idMonstro, idRegiaoOrigem, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro) VALUES
+(1, 1, 'Chaos Sprite', 1640, 49, 15, 25),
+(2, 1, 'Gorrilaphant', 1640, 61, 15, 25),
+(3, 1, 'Linix', 400, 25, 4, 20),
+(4, 1, 'Seed Splinter', 400, 25, 4, 20);
 
 INSERT INTO Habilidade (nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown, idClasse) VALUES
 ('Corte Feroz', 50, 0, 30, 5, 1),
@@ -51,10 +62,10 @@ INSERT INTO Boss (idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, 
 (5, 'Golem de Pedra', 400, 40, 25, 1.8, 4);
 
 INSERT INTO instanciaMonstro (idMonstro, vidaAtual, idSala) VALUES
-(1, 50, 1),
-(1, 70, 2),  
-(2, 500, 3),  
-(1, 40, 4);
+(1, 1640, 1),
+(2, 1640, 1),  
+(3, 400, 1),  
+(4, 400, 1);
 
 INSERT INTO Usuario (idUsuario, login, senha, qtdPersonagem) VALUES
 (1,'admin', 'admin', 1);
@@ -71,3 +82,9 @@ INSERT INTO Save (idUsuario, idPersonagem) VALUES
 INSERT INTO itemSala (idSala, quantidadeItem, idItem) VALUES
 (1, 2, 2),
 (2, 1, 1);
+
+INSERT INTO SalaRegiao (idSala, idRegiao) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2);
