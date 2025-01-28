@@ -30,13 +30,6 @@ CREATE TABLE IF NOT EXISTS Sala (
     salaLeste INT,
     salaOeste INT
 );
-
-CREATE TABLE IF NOT EXISTS SalaRegiao (
-    idSala INT REFERENCES Sala(idSala) ON DELETE CASCADE,
-    idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE CASCADE,
-    PRIMARY KEY (idSala, idRegiao)
-);
-
 CREATE TABLE IF NOT EXISTS instanciaMonstro (
     idInstanciaMonstro SERIAL PRIMARY KEY,
     idMonstro INT REFERENCES Monstro(idMonstro) ON DELETE CASCADE,
