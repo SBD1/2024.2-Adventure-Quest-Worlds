@@ -101,9 +101,3 @@ INSERT INTO Save (idUsuario, idPersonagem) VALUES
 INSERT INTO itemSala (idSala, quantidadeItem, idItem) VALUES
 (1, 2, 2),
 (2, 1, 1);
-
-INSERT INTO SalaRegiao (idSala, idRegiao) VALUES
-(1, 1),
-(2, 1),
-(3, 2),
-(4, 2);
