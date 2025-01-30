@@ -21,7 +21,6 @@
 * Missao
 * ObjetivoMissao
 * ProgressoMissao
-* RecompensaMissao
 
 ## Atributos
 
@@ -44,7 +43,6 @@
 - **Missao:** idMissao, nomeMissao, descricao, idMissaoAnterior  
 - **ObjetivoMissao:** idObjetivo, descricaoObjetivo, tipoObjetivo, quantidadeRequerida, idMissao  
 - **ProgressoMissao:** idPersonagem, idMissao, idObjetivo, quantidadeAtual, status  
-- **RecompensaMissao:** idRecompensa, idMissao, tipoRecompensa, valorRecompensa, idItem 
 
 ## Relacionamentos
 
@@ -133,16 +131,6 @@
 - Um Personagem pode ter progresso em várias Missões.
 - Um ProgressoMissao pertence a um único Personagem.
 - Cardinalidade: (0:N) (1:1)  
-
-**Missão concede RecompensaMissao:**  
-- Uma Missão pode conceder uma ou várias RecompensaMissao.
-- Uma RecompensaMissao pertence a uma única Missão.
-- Cardinalidade: (1:N) (1:1)  
-
-**RecompensaMissao pode incluir Item:**  
-- Uma RecompensaMissao pode conceder nenhum ou um Item.
-- Um Item pode ser concedido por nenhuma ou uma RecompensaMissao.
-- Cardinalidade: (0:1) (0:1)
 
 ---
 
