@@ -15,15 +15,21 @@ CREATE TABLE IF NOT EXISTS Monstro (
     tipoMonstro VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS Regiao (
+    idRegiao SERIAL PRIMARY KEY,
+    nomeRegiao VARCHAR(50) NOT NULL
+    descricaoRegiao TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS Sala (
     idSala SERIAL PRIMARY KEY,
+    idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE CASCADE,
     nomeSala VARCHAR(50) NOT NULL,
     salaNorte INT,
     salaSul INT,
     salaLeste INT,
     salaOeste INT
 );
-
 CREATE TABLE IF NOT EXISTS instanciaMonstro (
     idInstanciaMonstro SERIAL PRIMARY KEY,
     idMonstro INT REFERENCES Monstro(idMonstro) ON DELETE CASCADE,
@@ -33,6 +39,7 @@ CREATE TABLE IF NOT EXISTS instanciaMonstro (
 
 CREATE TABLE IF NOT EXISTS Minion (
     idMonstro INT PRIMARY KEY REFERENCES Monstro(idMonstro) ON DELETE CASCADE,
+    idRegiaoOrigem INT REFERENCES Regiao(idRegiao) ON DELETE CASCADE,
     nomeMonstro VARCHAR(50) NOT NULL,
     vidaMonstro INT NOT NULL,
     danoMonstro INT NOT NULL,
