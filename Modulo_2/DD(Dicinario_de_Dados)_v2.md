@@ -1,194 +1,248 @@
-## Dicionário de Dados
+# Dicionário de Dados
 
 ---
 
-### **Usuário**
-#### Descrição: Entidade que armazena os dados de login dos jogadores.
-#### Observações: Um usuário pode até 3 saves.
-| Nome Variável |     Tipo     |             Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
-|   idUsuario   |     int      | Identificador único do usuário |  NOT NULL |   PK  |
-|      login    | varchar[20]   |  Nome de usuário para login      |  NOT NULL |   -   |
-|     senha     | varchar[20]   | Senha do usuário             |  NOT NULL |   -   |
-| qtdPersonagem |     int     | Número de personagens do usuário |  NOT NULL |   -   |
+### **Player**
+#### Descrição: Player é a uma entidade que descreve as caracterísitcas de todo o player dentro do jogo
+#### Observações: Player possui a chave estrangeira: `idSala`
+
+| Nome Variável |     Tipo     |           Descrição           | Restrição |   Chave   |
+| :-----------: | :----------: | :--------------------------: | :-------: | :-----: |
+|   idJogador   |     int      | Identificador único do jogador |     NOT NULL     |    PK    |
+|    idSala     |     int      | Sala atual onde o jogador está |     NOT NULL     |    FK    |
+|     nome      | varchar[30]   |        Nome do jogador         |     NOT NULL     |    -    |
+|      hp       |     int      |    Pontos de vida do jogador   |     NOT NULL     |    -    |
+|     mana      |     int      |    Pontos de mana do jogador   |     NOT NULL     |    -    |
+|      def      |     int      |       Defesa do jogador        |     NOT NULL     |    -    |
+|      atk      |     int      |  Ataque físico do jogador      |     NOT NULL     |    -    |
+|     atkmg     |     int      |  Ataque mágico do jogador      |     NOT NULL     |    -    |
+|     ouro      |     int      | Quantidade de ouro do jogador  |     NOT NULL     |    -    |
+|   armadura    |     int      | Equipamento de defesa do jogador |   NULL     |    -    |
+|     arma      |     int      | Equipamento de ataque do jogador |   NULL     |    -    |
+|   insignia    |     int      |     Item especial do jogador   |     NULL     |    -    |
+
+
 
 ---
 
-### **Save**
-#### Descrição: Entidade que armazena os dados dos saves dos jogadores.
-#### Observações: Um save pertence a um usuário, e um usuario pode ter até 3 saves.
-| Nome Variável |     Tipo     |             Descrição           | Restrição | Chave |
-| :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
-|   idUsuario  |     int      | Identificador do usuário dono do save |  NOT NULL |   FK  |
-|   idPersonagem |     int     | Identificador do personagem do save |  NOT NULL |   FK  |
-
----
-
-### **Personagem**
-#### Descrição: Entidade que armazena os dados dos personagens dos jogadores.
-#### Observações: Um personagem pertence a uma classe e está em uma sala.
-
-| Nome Variável       |     Tipo     |                Descrição             | Restrição | Chave |
-| :------------------: | :----------: | :---------------------------------: | :-------: | :---: |
-|    idPersonagem     |     int      |    Identificador único do personagem  |  NOT NULL |   PK  |
-|      nomePersonagem   | varchar[20]   | Nome do personagem                  |  NOT NULL |   -   |
-| staminaAtualPersonagem|     int     |   Stamina atual do personagem     |  NOT NULL |   -   |
-|   vidaAtualPersonagem|     int     |   Vida atual do personagem     |  NOT NULL |   -   |
-|staminaBasePersonagem |     int     |   Stamina base do personagem     |  NOT NULL |   -   |
-|   vidaBasePersonagem|     int     |     Vida base do personagem     |  NOT NULL |   -   |
-|  defesaPersonagem   |     int      |    Defesa do personagem             |  NOT NULL |   -   |
-|   ataqueFisico      |     int      |   Ataque físico do personagem        |  NOT NULL |   -   |
-|   ataqueMagico      |     int      | Ataque mágico do personagem         |  NOT NULL |   -   |
-
----
 ### **Classe**
-#### Descrição: Entidade que armazena os dados das classes dos personagens.
-#### Observações: Uma classe pode ter várias habilidades.
+#### Descrição: Classe é uma entidade que descreve as características base das diferentes classes disponíveis no jogo.
 
-| Nome Variável |     Tipo     |          Descrição         | Restrição | Chave |
-| :-----------: | :----------: | :------------------------: | :-------: | :---: |
-|   idClasse    |     int      | Identificador único da classe |  NOT NULL |  PK   |
-|  nomeClasse   | varchar[30]   |        Nome da classe        |  NOT NULL |  -   |
-|    mulFisico  |    float    | Multiplicador de ataque físico |  NOT NULL |  -   |
-|   mulMagico   |    float    |  Multiplicador de ataque mágico |  NOT NULL |  -   |
+| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
+| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
+|   idClasse    |     int      | Identificador único da classe |     NOT NULL     |   PK   |
+|     mana      |     int      |    Pontos de mana base da classe |   NOT NULL     |   -   |
+|      def      |     int      |     Defesa base da classe     |     NOT NULL     |   -   |
+|      atk      |     int      |  Ataque físico base da classe |     NOT NULL     |   -   |
+|     atkmg     |     int      |  Ataque mágico base da classe |     NOT NULL     |   -   |
+
+
 ---
+
+### **Loja**
+#### Descrição: Loja é uma entidade que descreve as características das lojas disponíveis no jogo, incluindo sua localização e identificação única.
+
+#### Observações: Loja possui as chaves estrangeiras: `idSala` e `idAndar`.
+
+| Nome Variável |     Tipo     |               Descrição              | Restrição | Chave |
+| :-----------: | :----------: | :---------------------------------: | :-------: | :---: |
+|    idLoja     |     int      |   Identificador único da loja        |     NOT NULL     |   PK   |
+|    idSala     |     int      | Sala onde a loja está localizada     |     NOT NULL     |   FK   |
+|   idAndar     |     int      | Andar onde a loja está localizada    |     NOT NULL     |   FK   |
+|     nome      | varchar[30]   |            Nome da loja              |     NOT NULL     |   -   |
+
+
+---
+
+### **EstoqueItem**
+#### Descrição: EstoqueItem é uma entidade que descreve os itens disponíveis em estoque nas lojas, incluindo o preço e a quantidade disponível.
+
+#### Observações: EstoqueItem possui as chaves estrangeiras: `idItem` e `idLoja`.
+
+| Nome Variável |     Tipo     |             Descrição            | Restrição | Chave |
+| :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
+|    idItem     |     int      |   Identificador único do item    |     NOT NULL     |   FK   |
+|    idLoja     |     int      | Loja onde o item está disponível |     NOT NULL     |   FK   |
+|     preço     |     int      |          Preço do item           |     NOT NULL     |   -   |
+|  quantidade   |     int      | Quantidade disponível no estoque |     NOT NULL     |   -   |
+
+---
+
 ### **Habilidade**
-#### Descrição: Entidade que armazena os dados das habilidades dos personagens.
-#### Observações: Uma habilidade pertence a uma classe.
+#### Descrição: Habilidade é uma entidade que descreve as características das habilidades disponíveis no jogo, incluindo seu custo de mana, dano, tempo de recarga e tipo de dano.
 
-| Nome Variável   |     Tipo     |             Descrição            | Restrição | Chave |
-| :--------------: | :----------: | :-----------------------------: | :-------: | :---: |
-|   idHabilidade  |     int      |  Identificador único da habilidade |  NOT NULL |   PK  |
-|  nomeHabilidade | varchar[30]   |       Nome da habilidade         |  NOT NULL |  -   |
-|     danoFisico    |     int      |       Dano físico da habilidade     |  NOT NULL |  -   |
-|    danoMagico    |     int      |      Dano mágico da habilidade     |  NOT NULL |  -   |
-|   custoStamina   |     int      | Custo de stamina da habilidade   |  NOT NULL |  -   |
-|  custoCooldown  |     int      |  Cooldown da habilidade         |  NOT NULL |   -  |
----
-### **Inventario**
-#### Descrição: Entidade que armazena os itens do personagem.
-#### Observações: Um inventário pertence a um personagem.
+#### Observações: Habilidade possui a chave estrangeira: `idClasse`.
 
-| Nome Variável  |     Tipo     |         Descrição        | Restrição | Chave |
-| :-------------: | :----------: | :---------------------: | :-------: | :---: |
-|   idPersonagem |     int      | Identificador do personagem dono do inventário | NOT NULL|   FK |
-|espacoDisponivel |     int      | Espaço disponível no inventário |  NOT NULL |   -   |
-|   capacidade   |     int      |  Capacidade do inventário   |  NOT NULL |   -   |
-| quantidadeOuro   |    int     | Quantidade de ouro do personagem   |  NOT NULL |   -   |
+| Nome Variável  |     Tipo     |               Descrição               | Restrição | Chave |
+| :------------: | :----------: | :----------------------------------: | :-------: | :---: |
+|  idHabilidade  |     int      | Identificador único da habilidade     |     NOT NULL     |   PK   |
+|    idClasse    |     int      |   Classe que possui essa habilidade   |     NOT NULL     |   FK   |
+|      nome      | varchar[30]   |           Nome da habilidade          |    NOT NULL     |   -   |
+|  custoDeMana   |     int      | Custo de mana para usar a habilidade  |     NOT NULL     |   -   |
+|      dano      |     int      |       Dano causado pela habilidade    |     NOT NULL     |   -   |
+|    cooldown    |     int      |     Tempo de recarga da habilidade    |     NOT NULL     |   -   |
+|   tipodedano   | bool   | Tipo de dano da habilidade (físico '0'/ mágico '1') |   NOT NULL     |   -   |
+
 ---
+
+### **Inventário**
+#### Descrição: Inventário é uma entidade que descreve os itens armazenados por um jogador, incluindo espaço disponível e a possibilidade de os itens serem equipáveis.
+
+#### Observações: Inventário possui as chaves estrangeiras: `idJogador` e `idInstanciaItem`.
+
+| Nome Variável     |     Tipo     |             Descrição             | Restrição | Chave |
+| :---------------: | :----------: | :-------------------------------: | :-------: | :---: |
+|    idJogador      |     int      |       Jogador dono do inventário   |     NOT NULL     |   FK   |
+|  idInstanciaItem  |     int      |      Item associado ao inventário  |     NOT NULL     |   FK   |
+|      espaço       |     int      |     Espaço disponível no inventário |     NOT NULL     |   -   |
+|     equipavel     |     bool     |    Indica se o item é equipável (nao equipavel '0' / equipavel '1')    |     NOT NULL     |   -   |
+
+
+---
+
+### **Andar**
+#### Descrição: Andar é uma entidade que descreve os andares disponíveis no jogo, incluindo sua identificação única e nome.
+
+| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
+| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
+|    idAndar    |     int      | Identificador único do andar  |     NOT NULL     |   PK   |
+|     nome      | varchar[30]   |           Nome do andar        |     NOT NULL     |   -   |
+
+---
+
 ### **Sala**
-#### Descrição: Entidade que armazena os dados das salas do jogo.
-#### Observações: Uma sala pode conter monstros e itens.
-| Nome Variável |     Tipo     |         Descrição         | Restrição | Chave |
-| :-----------: | :----------: | :-----------------------: | :-------: | :---: |
-|    idSala     |     int      | Identificador único da sala |  NOT NULL |  PK   |
-|     nomeSala   | varchar[20]   |        Nome da sala         |  NOT NULL |  -   |
-|    salaNorte  |     int      | Identificador da sala ao norte  |   NULL  |   -   |
-|     salaSul    |     int      | Identificador da sala ao sul   |   NULL   |   -   |
-|    salaLeste    |     int      |  Identificador da sala ao leste  |   NULL   |   -   |
-|    salaOeste    |     int      |  Identificador da sala ao oeste  |   NULL   |   -   |
+#### Descrição: Sala é uma entidade que descreve as salas disponíveis no jogo, incluindo sua identificação única, localização no andar e uma descrição detalhada.
+
+#### Observações: Sala possui a chave estrangeira: `idAndar`.
+
+| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
+| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
+|    idSala     |     int      | Identificador único da sala   |  NOT NULL |   PK   |
+|    idAndar    |     int      |     Andar onde a sala está    |  NOT NULL |   FK   |
+|   descrição   | varchar[200]   |        Descrição da sala      |  NOT NULL |   -   |
+
 
 ---
-### **ItemSala**
-#### Descrição: Entidade que armazena os itens da sala.
-#### Observações: Uma sala pode ter vários itens.
-| Nome Variável    |     Tipo     |               Descrição             | Restrição | Chave |
-| :--------------: | :----------: | :---------------------------------: | :-------: | :---: |
-| idInstanciaSala  |      int      |     Identificador único da instância do item na sala      |  NOT NULL |   PK |
-|   quantidadeItem |     int      |    Quantidade de itens na sala     |  NOT NULL |   -   |
 
----
-### **ItemPersonagem**
-#### Descrição: Entidade que armazena os itens do personagem.
-#### Observações: Um personagem pode ter vários itens.
-| Nome Variável     |     Tipo     |               Descrição             | Restrição | Chave |
-| :---------------: | :----------: | :---------------------------------: | :-------: | :---: |
-| idInstanciaItemPersonagem    |     int      |    Identificador único da instância do item do personagem        |  NOT NULL |  PK   |
-|  quantidadeItem    |     int      |    Quantidade de itens do personagem     |  NOT NULL |   -   |
-
----
 ### **Item**
-#### Descrição: Entidade que armazena os dados dos itens do jogo.
-#### Observações: Um item pode ser consumível ou equipável.
+#### Descrição: Item é uma entidade que descreve os itens disponíveis no jogo, incluindo suas características básicas como nome, custo em ouro e se são equipáveis.
 
-| Nome Variável |     Tipo     |          Descrição          | Restrição | Chave |
-| :-----------: | :----------: | :-------------------------: | :-------: | :---: |
-|    idItem     |     int      |   Identificador único do item  |  NOT NULL |   PK  |
-|    nomeItem   | varchar[20]   |         Nome do item           |  NOT NULL |  -   |
-|   valorItem    |     int      |         Valor do item         |  NOT NULL |  -   |
-|    tipoItem   |     int      | Tipo do item (consumivel = 0, equipavel = 1) |  NOT NULL |  -   |
----
-### **Consumivel**
-#### Descrição: Entidade que armazena os dados dos itens consumíveis.
-#### Observações: Um item consumível é um tipo de item.
+| Nome Variável  |     Tipo     |             Descrição             | Restrição | Chave |
+| :------------: | :----------: | :-------------------------------: | :-------: | :---: |
+|     idItem     |     int      |     Identificador único do item    |  NOT NULL |   PK   |
+|  nomeDoItem    | varchar[30]   |            Nome do item            |  NOT NULL |   -   |
+|  custoDeOuro   |     int      |       Custo do item em ouro        |  NOT NULL |   -   |
+|   equipavel    |     bool     |      Indica se o item é equipável (nao equipavel '0' / equipavel '1')   |  NOT NULL |   -   |
 
-| Nome Variável     |     Tipo     |           Descrição           | Restrição | Chave |
-| :---------------: | :----------: | :--------------------------: | :-------: | :---: |
-|      idItem       |     int      |   Identificador único do item  |  NOT NULL |   FK  |
-| incrementoVidaAtual   |     int      |      Incremento de vida atual    |  NOT NULL |  -   |
-|incrementoStaminaAtual|     int      |     Incremento de stamina atual   |  NOT NULL |  -   |
----
-### **Equipavel**
-#### Descrição: Entidade que armazena os dados dos itens equipáveis.
-#### Observações: Um item equipável é um tipo de item.
 
-| Nome Variável    |     Tipo     |                Descrição             | Restrição | Chave |
-| :--------------: | :----------: | :---------------------------------: | :-------: | :---: |
-|     idItem       |     int      | Identificador único do item          |  NOT NULL |   FK  |
-| incrementoVidaBase |     int      |     Incremento de vida base        |  NOT NULL |  -   |
-| incrementoDefesa  |     int      |      Incremento de defesa           |  NOT NULL |   -  |
-|   mulFisico     |   float    | Multiplicador de ataque físico  |  NOT NULL |  -   |
-|   mulMagico    |  float   | Multiplicador de ataque mágico  |  NOT NULL |   -  |
-|     equipado    |    bool   |   Se o item está equipado      |  NOT NULL |  -   |
 ---
+
+### **Instância do Item**
+#### Descrição: Instância do Item é uma entidade que descreve cada instância única de um item no jogo, associando-a ao item correspondente.
+
+#### Observações: Instância do Item possui a chave estrangeira: `idItem`.
+
+| Nome Variável     |     Tipo     |                  Descrição                  | Restrição | Chave |
+| :---------------: | :----------: | :----------------------------------------: | :-------: | :---: |
+|  idInstanciaItem  |     int      | Identificador único da instância do item   |  NOT NULL |   PK   |
+|      idItem       |     int      |         Item associado à instância         |  NOT NULL |   FK   |
+
+
+
+---
+
+### **Consumível**
+#### Descrição: Consumível é uma entidade que descreve os itens consumíveis no jogo, detalhando os pontos de HP ou mana que podem ser restaurados ao utilizá-los.
+
+#### Observações: Consumível possui a chave estrangeira: `idItem`.
+
+| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
+| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
+|    idItem     |     int      |   Identificador único do item |  NOT NULL |   FK   |
+|    maisHp     |     int      |    Pontos de HP restaurados   |  NULL |   -   |
+|   maisMana    |     int      |   Pontos de mana restaurados  |  NULL |   -   |
+
+
+---
+
+### **Equipável**
+#### Descrição: Equipável é uma entidade que descreve os itens equipáveis no jogo, especificando os atributos que podem ser melhorados, como defesa, ataque físico, ataque mágico e mana, além do tipo de equipamento.
+
+#### Observações: Equipável possui a chave estrangeira: `idItem`.
+
+| Nome Variável |     Tipo     |               Descrição               | Restrição | Chave |
+| :-----------: | :----------: | :----------------------------------: | :-------: | :---: |
+|    idItem     |     int      |   Identificador único do item         |  NOT NULL |   FK   |
+|     tipo      | bool   | Tipo de equipamento (armadura '0' / arma(weapon)'1')  |  NOT NULL |   -   |
+|    maisDef    |     int      |         Aumento de defesa             |  NULL |   -   |
+|    maisAtk    |     int      |    Aumento de ataque físico           |  NULL |   -   |
+|   maisAtkmg   |     int      |    Aumento de ataque mágico           |  NULL |   -   |
+|   maisMana    |     int      |          Aumento de mana              |  NULL |   -   |
+
+
+---
+
 ### **Monstro**
-#### Descrição: Entidade que armazena os dados dos monstros.
-#### Observações: Um monstro pode ser um minion ou um boss.
-| Nome Variável |     Tipo     |            Descrição          | Restrição | Chave |
-| :-----------: | :----------: | :---------------------------: | :-------: | :---: |
-|   idMonstro   |     int      | Identificador único do monstro|  NOT NULL |   PK  |
-|    nomeMonstro| varchar[20]   |       Nome do monstro        |  NOT NULL |  -   |
-|   vidaMonstro |     int      |       Vida do monstro         |  NOT NULL |   -  |
-|  danoMonstro  |     int      |       Dano do monstro         |  NOT NULL |   -  |
-|  defMonstro  |     int      |       Defesa do monstro        |  NOT NULL |  -   |
-| tipoMonstro|     bool      |  Tipo do monstro (minion=0, boss=1) |  NOT NULL |   -  |
+#### Descrição: Monstro é uma entidade que descreve as características dos monstros no jogo, incluindo seus atributos como pontos de vida, defesa, ataque físico, ataque mágico, recompensa em ouro e seu tipo (Minion ou Boss).
 
----
-### **InstanciaMonstro**
-#### Descrição: Entidade que armazena os dados da instância de um monstro em uma sala.
-#### Observações: Uma sala pode ter várias instâncias de monstros.
-| Nome Variável        |     Tipo     |                Descrição            | Restrição | Chave |
-| :-------------------: | :----------: | :--------------------------------: | :-------: | :---: |
-| idInstanciaMonstro  |     int      | Identificador único da instância do monstro|  NOT NULL |  PK   |
-|    vidaAtual     |     int      |     Vida atual do monstro         |  NOT NULL |  -   |
-|    idSala        |     int      | Identificador da sala onde o monstro está |  NOT NULL |  FK  |
-|    idMonstro     |     int      | Identificador do monstro da instância |  NOT NULL |  FK  |
-
-
----
-### **Minion**
-#### Descrição: Entidade que armazena os dados de um monstro do tipo Minion.
-#### Observações: Um Minion é um tipo de monstro.
-| Nome Variável |     Tipo     |          Descrição         | Restrição | Chave |
-| :-----------: | :----------: | :-----------------------: | :-------: | :---: |
-|   idMonstro   |     int      |  Identificador único do monstro  |  NOT NULL |  FK   |
-| quantidadeOuro |   int      | Quantidade de ouro dropada  |  NOT NULL |   -  |
----
-### **Boss**
-#### Descrição: Entidade que armazena os dados de um monstro do tipo Boss.
-#### Observações: Um Boss é um tipo de monstro.
 | Nome Variável |     Tipo     |              Descrição              | Restrição | Chave |
 | :-----------: | :----------: | :--------------------------------: | :-------: | :---: |
-|   idMonstro   |     int      |  Identificador único do monstro     |  NOT NULL |  FK   |
-|   idItem      |     int      | Identificador único do item dropado|  NOT NULL |   FK  |
-|   mulBoss    |    int    | Multiplicador de drop de item      |  NOT NULL |   -  |
+|   idMonstro   |     int      |  Identificador único do monstro     |  NOT NULL |   PK   |
+|      hp       |     int      |      Pontos de vida do monstro      |  NOT NULL |   -   |
+|      def      |     int      |           Defesa do monstro         |  NOT NULL |   -   |
+|      atk      |     int      |        Ataque físico do monstro     |  NOT NULL |   -   |
+|     atkmg     |     int      |        Ataque mágico do monstro     |  NOT NULL |   -   |
+|    qntdOuro   |     int      | Quantidade de ouro ao ser derrotado |  NOT NULL |   -   |
+|     tipo      | bool   |    Tipo de monstro (Minion '0' / Boss '1')    |  NOT NULL |   -   |
+
+
 
 ---
-## Histórico de Versões
 
+
+### **Instância do Monstro**
+#### Descrição: Instância do Monstro é uma entidade que descreve as ocorrências únicas de monstros no jogo, incluindo a quantidade de instâncias presentes.
+
+#### Observações: Instância do Monstro possui a chave estrangeira: `idMonstro`.
+
+| Nome Variável |     Tipo     |                Descrição               | Restrição | Chave |
+| :-----------: | :----------: | :-----------------------------------: | :-------: | :---: |
+|   idMonstro   |     int      |    Identificador único do monstro      |  NOT NULL |   FK   |
+|  quantidade   |     int      | Quantidade de instâncias do monstro    |  NOT NULL |   -   |
+
+
+---
+
+### **Minion**
+#### Descrição: Minion é uma entidade que representa um tipo específico de monstro no jogo, identificado de forma única.
+
+#### Observações: Minion possui a chave estrangeira: `idMonstro`.
+
+| Nome Variável | Tipo |              Descrição              | Restrição | Chave |
+| :-----------: | :--: | :--------------------------------: | :-------: | :---: |
+|   idMonstro   | int  |  Identificador único do monstro     |  NOT NULL |   FK   |
+
+
+---
+
+### **Boss**
+#### Descrição: Boss é uma entidade que representa os chefes no jogo, detalhando seu item de recompensa (drop) e uma descrição única.
+
+#### Observações: Boss possui as chaves estrangeiras: `idMonstro` e `idItem`.
+
+| Nome Variável |     Tipo     |           Descrição           | Restrição | Chave |
+| :-----------: | :----------: | :--------------------------: | :-------: | :---: |
+|   idMonstro   |     int      |  Identificador único do monstro |  NOT NULL |   FK   |
+|    idItem     |     int      |      Item dropado pelo boss    |  NOT NULL |   FK   |
+|   descrição   | varchar[200]   |       Descrição do boss        |  NOT NULL |   -   |
+
+
+--- 
+
+
+## 
 | Versão |    Data    | Descrição               | Autor                                                                                                                 |
 | :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | [`1.0`](/Modulo_1/DD(Dicinario_de_Dados).md)  | 26/11/2024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |
-| [`1.1`](/Modulo_2/DD(Dicinario_de_Dados)_v1.1.md)  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
-| [`2`](/Modulo_2/DD(Dicinario_de_Dados)_v2.md)  | 14/01/2025 | Aplica novas ideias DD         |  [Henrique ](https://github.com/henriquecq)                         |
+| [`2`](/Modulo_2/DD(Dicinario_de_Dados)_v2.md)  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
 

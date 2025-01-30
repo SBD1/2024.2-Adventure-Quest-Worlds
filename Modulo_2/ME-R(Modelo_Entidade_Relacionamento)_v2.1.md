@@ -146,3 +146,12 @@
 **Monstro possui exclusivamente tipos**
 
 - Um monstro pode ser classificado **apenas com uma única** das seguintes categorias: Minion ou Boss
+
+---
+
+## 
+| Versão |    Data    | Descrição               | Autor                                                                                                                 |
+| :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`1.0`](/Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)  | 26/11/2024 | Criação do documento ME-R | Todos                       |
+| [`2.0`](/Modulo_2/ME-R(Modelo_Entidade_Relacionamento)_v2.md)  | 30/11/2024 | Adição de atributos e relacionamentos | Todos                       |
+| [`2.1`](/Modulo_2/ME-R(Modelo_Entidade_Relacionamento)_v2.1.md)  | 14/01/2025 | Adição de atributos e relacionamentos | Todos                       |
