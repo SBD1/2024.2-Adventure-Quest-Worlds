@@ -14,7 +14,7 @@
 * Inventario
 * ItemPersonagem
 * Sala
-* ItemSala
+* Regiao
 * Item
 * Consumivel
 * Equipavel
@@ -24,25 +24,25 @@
 
 ## Atributos
 
-- **Usuario:** idUsuario, login, senha, qtdPersonagem  
-- **Monstro:** idMonstro, tipoMonstro  
+- **Usuario:** idUsuario, login, senha, qtdPersonagem 
+- **Monstro:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, tipoMonstro, qntXp
 - **InstanciaMonstro:** idInstanciaMonstro, idMonstro, vidaAtual, idSala  
-- **Minion:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro  
-- **Boss:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, mulBoss, idItem  
+- **Minion:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro, qntXp  
+- **Boss:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, mulBoss, idItem, fraseBoss, qntXp  
 - **Save:** idUsuario, idPersonagem  
 - **Classe:** idClasse, nomeClasse, mulFisico, mulMagico  
-- **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idSala, xp, nivel  
+- **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idSala, xp, nivel, idClasse  
 - **Habilidade:** idHabilidade, nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown, idClasse  
-- **Inventario:** idInventario, espacoDisponivel, capacidade, quantidadeOuro, idPersonagem  
-- **ItemPersonagem:** idItem, idItemPersonagem, idInventario, quantidadeItem  
-- **Sala:** idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste  
-- **ItemSala:** idItem, idItemSala, idSala, quantidadeItem  
-- **Item:** idItem, tipoItem, raridade  
-- **Consumivel:** idItem, nomeItem, valorItem, incrementoVidaAtual, incrementoStaminaAtual  
-- **Equipavel:** idItem, nomeItem, valorItem, incrementoVidaBase, incrementoDefesa, mulFisico, mulMagico, equipado ('s' ou 'n')  
-- **Missao:** idMissao, nomeMissao, descricao, idMissaoAnterior  
-- **ObjetivoMissao:** idObjetivo, descricaoObjetivo, tipoObjetivo, quantidadeRequerida, idMissao  
-- **ProgressoMissao:** idPersonagem, idMissao, idObjetivo, quantidadeAtual, status  
+- **Inventario:** idPersonagem, espacoDisponivel, capacidade, quantidadeOuro
+- **IntanciaItem:** idInstaciaItem, idItem, idItemSala, idPersonagem, quantidadeItem, equipado
+- **Sala:** idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste, idRegiao
+- **Regiao:** idRegiao, nomeRegiao, descricaoRegiao
+- **Item:** idItem, nomeItem, valorItem, tipoItem, raridade  
+- **Consumivel:** idItem, nomeItem, valorItem, raridade, incrementoVidaAtual, incrementoStaminaAtual  
+- **Equipavel:** idItem, nomeItem, valorItem, raridade,  incrementoVidaBase, incrementoDefesa, mulFisico, mulMagico 
+- **Missao:** idMissao, nomeMissao, descricao, idMissaoAnterior, xpRecompensa, idInstaciaItem  
+- **ObjetivoMissao:** idObjetivo, descricaoObjetivo, tipoObjetivo, quantidadeMeta, idMissao, idReferencia, tipoReferencia  
+- **ProgressoMissao:** idPersonagem, idObjetivo, progressoOjetivo, concluida  
 
 ## Relacionamentos
 
@@ -51,7 +51,7 @@
 - Um Save deve pertencer a um único Usuário.
 - Cardinalidade: (0:3) (1:1)   
 
-**Personagem corresponde ao save:**  
+**Save contem Personagem:**  
 - Um Personagem corresponde a um único Save.
 - Um Save corresponde a um único Personagem.
 - Cardinalidade: (1:1) (1:1)  
@@ -68,33 +68,28 @@
 
 **Personagem está em uma Sala:**  
 - Um Personagem deve estar em uma única Sala.
-- Uma Sala pode conter nenhum ou um Personagem.
-- Cardinalidade: (1:1) (0:1)  
+- Uma Sala pode conter nenhum ou varios Personagem.
+- Cardinalidade: (1:1) (0:n)  
 
-**Sala possui ItemSala:**  
-- Uma Sala pode ter nenhum ou vários ItemSala.
-- Um ItemSala deve estar em uma única Sala.
+**Sala possui InstaciaItem:**    
+- Uma Sala pode ter nenhum ou vários InstaciaItem.
+- Um InstaciaItem deve estar em uma única Sala.
 - Cardinalidade: (0:N) (1:1)  
 
-**ItemSala possui Item:**  
-- Um ItemSala deve possuir exatamente um Item.
-- Um Item pode estar em nenhum ou vários ItemSala.
+**InstaciaItem contem Item:**  
+- Um InstaciaItem deve possuir exatamente um Item.
+- Um Item pode estar em nenhum ou vários InstaciaItem.
 - Cardinalidade: (1:1) (0:N)  
 
-**Personagem possui Inventário:**  
+**Personagem tem Inventário:**  
 - Um Personagem tem um único Inventário.
 - Um Inventário pertence a um único Personagem.
 - Cardinalidade: (1:1) (1:1)  
 
-**Inventário guarda o ItemPersonagem:**  
-- Um Inventário pode ter nenhum ou vários ItemPersonagem.
-- Um ItemPersonagem deve estar em um único Inventário.
+**Inventário guarda InstaciaItem:**  
+- Um Inventário pode ter nenhum ou vários InstaciaItem.
+- Um InstaciaItem deve estar em um único Inventário.
 - Cardinalidade: (0:N) (1:1)  
-
-**ItemPersonagem possui Item:**  
-- Um ItemPersonagem deve possuir exatamente um Item.
-- Um Item pode conter nenhum ou vários ItemPersonagem.
-- Cardinalidade: (1:1) (0:N)  
 
 **Personagem mata InstanciaMonstro:**  
 - Um Personagem pode matar nenhum ou várias InstanciaMonstro.
@@ -106,9 +101,9 @@
 - Uma InstanciaMonstro deve pertencer a um único Monstro.
 - Cardinalidade: (0:N) (1:1)  
 
-**InstanciaMonstro cria ItemPersonagem:**  
-- Uma InstanciaMonstro pode criar nenhum ou um ItemPersonagem.
-- Um ItemPersonagem pode ser criado por nenhuma ou uma InstanciaMonstro.
+**InstanciaMonstro dropa InstaciaItem:**  
+- Uma InstanciaMonstro pode criar nenhum ou um InstaciaItem.
+- Um InstaciaItem criado por uma e so um InstanciaMonstro.
 - Cardinalidade: (0:1) (0:1)  
 
 **InstanciaMonstro está em uma Sala:**  
@@ -127,10 +122,50 @@
 - Um ObjetivoMissao pertence a uma única Missão.
 - Cardinalidade: (1:N) (1:1)  
 
-**Personagem tem ProgressoMissao:**  
+**Missão desbloqueia Missão:**
+- Uma Missão pode desbloquear uma ou várias Missões.
+- Uma Missão pode ser desbloqueada por uma única Missão.
+- Cardinalidade: (1:N) (1:1)
+
+**Missão concede InstanciaItem:**
+- Uma Missão pode conceder varias InstanciaItem.
+- Uma InstanciaItem pode ser concedida por uma Missão.
+- Cardinalidade: (1:N) (1:1)
+
+**ObjetivoMissao referencia InstanciaMonstro:**
+- Um ObjetivoMissao pode referenciar nenhuma ou varias InstanciaMonstro.
+- Um InstanciaMonstro pode ser referenciado por um ObjetivoMissao.
+- Cardinalidade: (0:n) (1:1)
+
+**ObjetivoMissao referencia Regiao:**
+- Um ObjetivoMissao pode referenciar uma Regiao.
+- Uma Regiao pode ser referenciada por um ObjetivoMissao.
+- Cardinalidade: (1:1) (1:1)
+
+**Regiao tem Salas:**
+- Uma Regiao pode ter várias Salas.
+- Uma Sala pertence a uma única Regiao.
+- Cardinalidade: (1:N) (1:1)
+
+**Minion esta em Regiao:**
+- Um Minion esta em uma Regiao.
+- Uma Regiao pode ter vários ou nenhum Minions.
+- Cardinalidade: (1:N) (1:N)
+
+**ObjetivoMissao conclui ProgressoMissao:**
+- Um ObjetivoMissao pode concluir um ProgressoMissao.
+- Um ProgressoMissao pode ser concluido por um ObjetivoMissao.
+- Cardinalidade: (1:1) (1:1)
+
+**Personagem progride ProgressoMissao:**  
 - Um Personagem pode ter progresso em várias Missões.
 - Um ProgressoMissao pertence a um único Personagem.
 - Cardinalidade: (0:N) (1:1)  
+
+**Personagem equipa InstanciaItem:**
+- Um Personagem pode equipar nenhum ou uma InstanciaItem.
+- Um InstanciaItem pode ser equipado por um Personagem.
+- Cardinalidade: (0:1) (1:1)
 
 ---
 

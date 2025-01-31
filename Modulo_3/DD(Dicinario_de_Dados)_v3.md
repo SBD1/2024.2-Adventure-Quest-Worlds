@@ -161,6 +161,7 @@
 |  danoMonstro  |     int      |       Dano do monstro         |  NOT NULL |   -  |
 |  defMonstro  |     int      |       Defesa do monstro        |  NOT NULL |  -   |
 | tipoMonstro|     bool      |  Tipo do monstro (minion=0, boss=1) |  NOT NULL |   -  |
+| qntXP| int | Quantidade de Xp q o monstro da ao ser morto| NOT NULL| -|
 
 ---
 ### **InstanciaMonstro**
@@ -191,6 +192,7 @@
 |   idMonstro   |     int      |  Identificador único do monstro     |  NOT NULL |  FK   |
 |   idItem      |     int      | Identificador único do item dropado|  NOT NULL |   FK  |
 |   mulBoss    |    int    | Multiplicador de drop de item      |  NOT NULL |   -  |
+| fraseBoss| varchar[200] | Frase do boss ao ser derrotado | NOT NULL | - |
 
 ---
 
@@ -208,13 +210,14 @@
 
 ---
 
-### **MissaoPersonagem**
+### **ProgressoMissao**
 #### Descrição: Relaciona personagens com as missões que estão realizando.
 | Nome Variável |     Tipo     |                Descrição            | Restrição | Chave |
 | :-----------: | :----------: | :-------------------------------: | :-------: | :---: |
 | idPersonagem |     int      | Identificador do personagem       |  NOT NULL |   FK  |
-| idMissao     |     int      | Identificador da missão           |  NOT NULL |   FK  |
+| idObjetivoMissao     |     int      | Identificador do objetivo da missao           |  NOT NULL |   FK  |
 | concluida    |    bool     | Indica se a missão foi concluída  |  NOT NULL |   -   |
+| progressoOjetivo | int | Progresso do objetivo | NOT NULL | - |
 
 ---
 
@@ -227,6 +230,9 @@
 |   idMissao   |     int      | Identificador da missão         |  NOT NULL |   FK  |
 | descricaoObjetivo | varchar(200) | Descrição do objetivo   |  NOT NULL |   -   |
 | tipoObjetivo  | int | Tipo do objetivo (1=derrotar monstros, 2=alcançar região, 3=percorrer salas) |  NOT NULL |   -   |
+| quantidadeMeta | int | Quantidade a ser atingida | NOT NULL | - |
+| idReferencia | int | ID da entidade a ser referenciada (Monstro, Região, Sala) | NOT NULL | - |
+| tipoReferencia | int | Tipo da entidade referenciada (Monstro=1, Região=2, Sala=3) | NOT NULL | - |
 
 
 ## Histórico de Versões
