@@ -54,12 +54,14 @@ pip install -r requirements.txt
 ## Entregas
 
 - Módulo 1
-  - [DER(Diagrama Entidade Relacionamento)](./Modulo_1/DER(Diagrama_Entidade_Relacionamento).png)
-  - [ME-R(Modelo Entidade Relacionamento)](./Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)
-  - [DD(Dicinario de Dados)](./Modulo_1/DD(Dicinario_de_Dados).md)
+  - [DER(Diagrama Entidade Relacionamento)_V1](./Modulo_1/DER(Diagrama_Entidade_Relacionamento).png)
+  - [ME-R(Modelo Entidade Relacionamento)_V1](./Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)
+  - [DD(Dicinario de Dados)_V1](./Modulo_1/DD(Dicinario_de_Dados).md)
 - Módulo 2
-  - [DD(Dicinario de Dados)](./Modulo_2/DD(Dicinario_de_Dados)_v1.1.md)
-  - [MER(Modelo Entidade Relacionamento)](./Modulo_2/MER(Modelo_Entidade_Relacionamento)_v2.md)
-  - [DD(Dicinario de Dados)](./Modulo_2/DD(Dicinario_de_Dados)_v2.md)
-  - [DER(Diagrama Entidade Relacionamento)](./Modulo_2/DER(Diagrama_Entidade_Relacionamento)_v2.png)
-
+  - [DER(Diagrama Entidade Relacionamento)_V2](./Modulo_2/DER(Diagrama_Entidade_Relacionamento)_v2.png)
+  - [ME-R(Modelo Entidade Relacionamento)_V2](./Modulo_2/ME-R(Modelo_Entidade_Relacionamento)_v2.1.md)
+  - [DD(Dicinario de Dados)_V2](./Modulo_2/DD(Dicinario_de_Dados)_v2.1.md)
+- Módulo 3
+  - [DER(Diagrama Entidade Relacionamento)_V3](./Modulo_3/DER(Diagrama_Entidade_Relacionamento)_v3.jpg)
+  - [ME-R(Modelo Entidade Relacionamento)_V3](./Modulo_3/ME-R(Modelo_Entidade_Relacionamento)_v3.md)
+  - [DD(Dicinario de Dados)_V3](./Modulo_3/DD(Dicinario_de_Dados)_v3.md)

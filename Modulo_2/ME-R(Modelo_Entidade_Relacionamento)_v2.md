@@ -125,3 +125,11 @@
 - Uma instânciaMonstro pode criar 0 até 1 itemPersonagem.  
 - Um itemPersonagem pode ser criado por 0 até 1 instânciaMonstro.  
 - Cardinalidade: (0:1) (0:1)
+
+---
+
+## 
+| Versão |    Data    | Descrição               | Autor                                                                                                                 |
+| :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`1.0`](/Modulo_1/ME-R(Modelo_Entidade_Relacionamento).md)  | 26/11/2024 | Criação do documento ME-R | Todos                       |
+| [`2.0`](/Modulo_2/ME-R(Modelo_Entidade_Relacionamento)_v2.md)  | 30/11/2024 | Adição de atributos e relacionamentos | Todos                       |
