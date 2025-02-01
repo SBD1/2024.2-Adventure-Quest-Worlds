@@ -4,6 +4,9 @@ INSERT INTO Classe (idClasse, nomeClasse, mulFisico, mulMagico) VALUES
 (3,'Arqueiro', 1.2, 0.8),
 (4,'Assassino', 1.3, 0.9);
 
+INSERT INTO Regiao (idRegiao, nomeRegiao, descricaoRegiao) VALUES
+(1,'Arcangrove','A beautiful, thriving forest home to many creatures of magical descent. Ancient magi have studied in the notable Tower of Magic, a place where magic users shall learn, evolve, and be tested.');
+
 INSERT INTO Sala (idSala, idRegiao, nomeSala, salaNorte, salaSul, salaLeste, salaOeste) VALUES
 (1, 1, 'Arcangrove', NULL, NULL, NULL, 2),
 (2, 1, 'The Cloister', 3, NULL, 1, NULL),
@@ -12,8 +15,8 @@ INSERT INTO Sala (idSala, idRegiao, nomeSala, salaNorte, salaSul, salaLeste, sal
 (5, 1, 'Ruins of Great Gilead', NULL, 6, NULL, 4),
 (6, 1, 'Mount Mafic', 5, 7, NULL, NULL),
 (7, 1, 'Elemental', 6, 8, 9, NULL),
-(8, 2, 'Ledgermayne', 7, NULL, 9, NULL),
-(9, 2, 'Boss', NULL, 8, NULL, 7);
+(8, 1, 'Ledgermayne', 7, NULL, 9, NULL),
+(9, 1, 'Boss', NULL, 8, NULL, 7);
 
 
 INSERT INTO Monstro (idMonstro,tipoMonstro) VALUES
@@ -28,9 +31,6 @@ INSERT INTO Monstro (idMonstro,tipoMonstro) VALUES
 (9,'Minion'),
 (10,'Minion'),
 (11, 'Minion');
-
-INSERT INTO Regiao (idRegiao, nomeRegiao, descricaoRegiao) VALUES
-(1,'Arcangrove','A beautiful, thriving forest home to many creatures of magical descent. Ancient magi have studied in the notable Tower of Magic, a place where magic users shall learn, evolve, and be tested.');
 
 INSERT INTO Minion (idMonstro, idRegiaoOrigem, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro) VALUES
 (1, 1, 'Chaos Sprite', 1640, 49, 15, 25),
