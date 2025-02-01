@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS Item (
-    idItem SERIAL PRIMARY KEY,
+    idItem INT PRIMARY KEY,
     tipoItem VARCHAR(20) NOT NULL
 );
 
@@ -16,13 +16,13 @@ CREATE TABLE IF NOT EXISTS Monstro (
 );
 
 CREATE TABLE IF NOT EXISTS Regiao (
-    idRegiao SERIAL PRIMARY KEY,
-    nomeRegiao VARCHAR(50) NOT NULL
+    idRegiao INT PRIMARY KEY,
+    nomeRegiao VARCHAR(50) NOT NULL,
     descricaoRegiao TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Sala (
-    idSala SERIAL PRIMARY KEY,
+    idSala INT PRIMARY KEY,
     idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE CASCADE,
     nomeSala VARCHAR(50) NOT NULL,
     salaNorte INT,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Sala (
     salaOeste INT
 );
 CREATE TABLE IF NOT EXISTS instanciaMonstro (
-    idInstanciaMonstro SERIAL PRIMARY KEY,
+    idInstanciaMonstro INT PRIMARY KEY,
     idMonstro INT REFERENCES Monstro(idMonstro) ON DELETE CASCADE,
     vidaAtual INT NOT NULL,
     idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Boss (
 );
 
 CREATE TABLE IF NOT EXISTS Classe (
-    idClasse SERIAL PRIMARY KEY,
+    idClasse INT PRIMARY KEY,
     nomeClasse VARCHAR(50) NOT NULL,
     mulFisico DECIMAL(5, 2) NOT NULL,
     mulMagico DECIMAL(5, 2) NOT NULL

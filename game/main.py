@@ -6,24 +6,24 @@ from ascii_arts import name, bye
 from math import floor
 
 def clear():
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def selecionar_save(userId):
     print(userId)
 
 def criar_conta(username, password, conn, cur):
-    cur.execute(f"SELECT * FROM usuario WHERE login = '{username}' AND senha = '{password}'")
+    cur.execute(f"SELECT * FROM usuario WHERE login = %s AND senha = %s",(username,password))
     existe_usuario = cur.fetchall()
     if existe_usuario:
         return None
-    cur.execute(f"INSERT INTO usuario (login, senha) VALUES ('{username}', '{password}') RETURNING idusuario;")
+    cur.execute(f"INSERT INTO usuario (login, senha) VALUES (%s, %s) RETURNING idusuario;",(username,password))
     userId = cur.fetchone()
     conn.commit()
     return userId
     
 
 def validar_login(username, password, cur):
-    cur.execute(f"SELECT * FROM usuario WHERE login = '{username}' AND senha = '{password}'")
+    cur.execute(f"SELECT * FROM usuario WHERE login = %s AND senha = %s",(username,password))
     user = cur.fetchall()
     if user:
         return user[0]
@@ -34,23 +34,23 @@ def sair():
     exit()
         
 def mover_personagem(conn, cur, personagemId, direcao):
-    cur.execute(f"UPDATE personagem SET idSala = {direcao} WHERE idPersonagem = {personagemId};")
+    cur.execute(f"UPDATE personagem SET idSala = %s WHERE idPersonagem = %s;",(direcao, personagemId))
     conn.commit()
 
 def get_sala(cur, salaAtual):
-    cur.execute(f"SELECT * FROM sala WHERE idSala = {salaAtual};")
+    cur.execute(f"SELECT * FROM sala WHERE idSala = %s;",(salaAtual,))
     sala = cur.fetchall()[0]
     return sala
         
 def iniciar_game(personagemId, conn, cur):
     clear()
 
-    cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = {personagemId};")
+    cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
     personagem_atual = cur.fetchall()[0]
 
     while True:
         clear()
-        cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = {personagemId};")
+        cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
         personagem_atual = cur.fetchall()[0]
         sala_info = get_sala(cur, personagem_atual['idsala'])
         print(f"Você está na sala {sala_info['nomesala']}\n\n")
@@ -78,7 +78,7 @@ def iniciar_game(personagemId, conn, cur):
         mover_personagem(conn, cur, personagemId, sala_info[f'sala{direcao}'])
 
 def login(conn, cur):
-    os.system('clear')
+    clear()
     options = {
         '1': "Login",
         '2': "Cadastrar",
@@ -89,7 +89,7 @@ def login(conn, cur):
     while True:
         chosen_option = input("Escolha uma opção:\n[1] - Login\n[2] - Cadastrar\n[0] - Sair\n")
         if chosen_option not in options:
-            os.system('clear')
+            clear()
             print(name)
             print("Seja bem-vindo ao Adventure Quest World!")
             print(100* '-')
@@ -112,12 +112,25 @@ def login(conn, cur):
             if userId:
                 return userId['idusuario']
             else:
-                os.system('clear')
+                clear()
                 print(name)
                 print("Seja bem-vindo ao Adventure Quest World!")
                 print(100* '-')
                 print("Usuário ou senha incorretos.")
                 print(100* '-')
+
+def criar_inventario(conn, cur, personagemId):
+    default_schema = {
+        'capacidade': 30,
+        'espacodisponivel': 30,
+        'quantidadeouro': 0
+    }
+    sql_query = f"""
+    INSERT INTO inventario (capacidade, espacodisponivel, quantidadeouro, idpersonagem)
+    VALUES (%s, %s, %s, %s);
+    """
+    cur.execute(sql_query, (default_schema['capacidade'], default_schema['espacodisponivel'], default_schema['quantidadeouro'], personagemId))
+    conn.commit()
 
 def criar_personagem(conn, cur, nome, classe):
     valores_base = {
@@ -133,7 +146,7 @@ def criar_personagem(conn, cur, nome, classe):
         staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, 
         ataqueMagico, idClasse, idSala
     ) VALUES (
-        '{nome}',
+        %s,
         {valores_base['staminaBasePersonagem']},
         {valores_base['vidaBasePersonagem']},
         {valores_base['staminaBasePersonagem']},
@@ -141,13 +154,14 @@ def criar_personagem(conn, cur, nome, classe):
         {valores_base['defensePersonagem']},
         {floor(valores_base['ataqueFisico'] * classe['mulfisico'])},
         {floor(valores_base['ataqueMagico'] * classe['mulmagico'])},
-        {classe['idclasse']},
+        %s,
         1
     ) RETURNING idPersonagem;
     """
-    cur.execute(sql_insert)
+    cur.execute(sql_insert,(nome,classe['idclasse']))
     idPersonagem = cur.fetchone()['idpersonagem']  
     conn.commit()
+    criar_inventario(conn, cur, idPersonagem)
 
     return idPersonagem
 
@@ -162,11 +176,15 @@ def selecionar_classe(cur):
         print("Escolha uma classe:")
         for i, classe in enumerate(classes):
             print(f"[{i}] - {classe['nomeclasse']}")
+
+        escolha = input("Digite o número da classe que deseja: ")
+        escolha = int(escolha) if escolha.isdigit() else -1
         
-        escolha = int(input("Digite o número da classe que deseja: "))
         if escolha < 0 or escolha >= len(classes):
             clear()
-            print("=== Opção inválida! ===")
+            print(100* '-')
+            print("Opção inválida!")
+            print(100* '-')
         else:
             return classes[escolha]
 
@@ -174,8 +192,8 @@ def selecionar_save(userId, cur, conn):
     clear()
     cur.execute(f"""
                 SELECT s.idpersonagem, p.nomepersonagem FROM save AS s
-                JOIN personagem as p On s.idpersonagem = p.idpersonagem
-                WHERE idusuario = {userId};""")
+                JOIN personagem as p ON s.idpersonagem = p.idpersonagem
+                WHERE idusuario = %s;""",(userId,))
     saves = cur.fetchall()
 
     while len(saves) < 3:
@@ -213,4 +231,6 @@ def main():
     
 
 if __name__ == "__main__":
+    create_tables()
+    populate_tables()
     main()

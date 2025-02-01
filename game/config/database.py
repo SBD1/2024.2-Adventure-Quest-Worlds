@@ -35,11 +35,10 @@ def create_tables():
         conn.commit()
         cur.close()
         conn.close()
-
-        print("Tabelas criadas com sucesso")
             
     except psycopg2.Error as e:
         print(f"Erro ao inicializar as tabelas: {e}")
+        exit(0)
 
 def populate_tables():
     try:
@@ -57,8 +56,7 @@ def populate_tables():
         conn.commit()
         cur.close()
         conn.close()
-
-        print("Tabelas populadas com sucesso.")
             
     except psycopg2.Error as e:
         print(f"Erro ao popular as tabelas: {e}")
+        exit(0)
