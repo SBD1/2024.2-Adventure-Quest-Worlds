@@ -1,38 +1,37 @@
 CREATE TABLE IF NOT EXISTS Item (
     idItem INT PRIMARY KEY,
-    nomeItem VARCHAR(20) NOT NULL,
+    nomeItem VARCHAR(50) NOT NULL,
     tipoItem BOOLEAN NOT NULL,
     precoItem INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Usuario (
     idUsuario SERIAL PRIMARY KEY,
-    login VARCHAR(20) NOT NULL,
-    senha VARCHAR(20) NOT NULL,
+    login VARCHAR(50) NOT NULL,
+    senha VARCHAR(50) NOT NULL,
     qtdPersonagem INT CHECK (qtdPersonagem BETWEEN 0 AND 3)
 );
 
 CREATE TABLE IF NOT EXISTS Monstro (
     idMonstro INT PRIMARY KEY,
-    nomeMonstro VARCHAR(20) NOT NULL,
+    nomeMonstro VARCHAR(50) NOT NULL,
     vidaMonstro INT NOT NULL,
     danoMonstro INT NOT NULL,
     defMonstro INT NOT NULL,
     tipoMonstro BOOLEAN NOT NULL,
-    qntXP INT NOT NULL,
-
+    qntXP INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Regiao (
     idRegiao INT PRIMARY KEY,
-    nomeRegiao VARCHAR(20) NOT NULL,
+    nomeRegiao VARCHAR(50) NOT NULL,
     descricaoRegiao VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Sala (
     idSala INT PRIMARY KEY,
     idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE SET NULL,
-    nomeSala VARCHAR(20) NOT NULL,
+    nomeSala VARCHAR(50) NOT NULL,
     salaNorte INT,
     salaSul INT,
     salaLeste INT,
@@ -62,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Boss (
 
 CREATE TABLE IF NOT EXISTS Classe (
     idClasse INT PRIMARY KEY,
-    nomeClasse VARCHAR(30) NOT NULL,
+    nomeClasse VARCHAR(50) NOT NULL,
     mulFisico DECIMAL(5, 2) NOT NULL,
     mulMagico DECIMAL(5, 2) NOT NULL
 );
@@ -70,8 +69,8 @@ CREATE TABLE IF NOT EXISTS Classe (
 CREATE TABLE IF NOT EXISTS Personagem (
     idPersonagem SERIAL PRIMARY KEY,
     idClasse INT REFERENCES Classe(idClasse) ON DELETE SET NULL,
-    idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL
-    nomePersonagem VARCHAR(20) NOT NULL,
+    idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL,
+    nomePersonagem VARCHAR(50) NOT NULL,
     nivel INT NOT NULL,
     xpAtual INT NOT NULL,
     staminaAtualPersonagem INT NOT NULL,
@@ -80,7 +79,7 @@ CREATE TABLE IF NOT EXISTS Personagem (
     vidaBasePersonagem INT NOT NULL,
     defensePersonagem INT NOT NULL,
     ataqueFisico INT NOT NULL,
-    ataqueMagico INT NOT NULL,
+    ataqueMagico INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Save (
@@ -91,7 +90,7 @@ CREATE TABLE IF NOT EXISTS Save (
 
 CREATE TABLE IF NOT EXISTS Habilidade (
     idHabilidade INT PRIMARY KEY,
-    nomeHabilidade VARCHAR(30) NOT NULL,
+    nomeHabilidade VARCHAR(50) NOT NULL,
     danoFisico INT NOT NULL,
     danoMagico INT NOT NULL,
     custoStamina INT NOT NULL,
@@ -117,14 +116,14 @@ CREATE TABLE IF NOT EXISTS Equipavel (
     incrementoVidaBase INT NOT NULL,
     incrementoDefesa INT NOT NULL,
     mulFisico DECIMAL(5, 2) NOT NULL,
-    mulMagico DECIMAL(5, 2) NOT NULL,
+    mulMagico DECIMAL(5, 2) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS InstanciaItem (
     idInstanciaItem INT PRIMARY KEY,
     idItem INT REFERENCES Item(idItem) ON DELETE CASCADE,
     quantidadeItem INT NOT NULL,
-    equipado BOOLEAN NOT NULL,
+    equipado BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Missao (
@@ -156,7 +155,7 @@ CREATE TABLE IF NOT EXISTS ProgressoMissao (
 CREATE TABLE IF NOT EXISTS Loja (
     idLoja INT PRIMARY KEY,
     idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL,
-    nomeLoja VARCHAR(20) NOT NULL
+    nomeLoja VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Catalogo (
