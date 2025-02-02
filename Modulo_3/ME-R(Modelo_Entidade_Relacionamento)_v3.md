@@ -27,26 +27,26 @@
 ## Atributos
 
 - **Usuario:** idUsuario, login, senha, qtdPersonagem 
-- **Monstro:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, tipoMonstro, qntXp
-- **InstanciaMonstro:** idInstanciaMonstro, idMonstro, vidaAtual, idSala, idRegiao
-- **Minion:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro, qntXp  
-- **Boss:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, mulBoss, idItem, fraseBoss, qntXp  
+- **Monstro:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, tipoMonstro, qntXp, idRegiao
+- **InstanciaMonstro:** idInstanciaMonstro, idMonstro, vidaAtual, idSala
+- **Minion:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, quantidadeOuro, qntXp, idRegiao 
+- **Boss:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, mulBoss, idItem, fraseBoss, qntXp,id Regiao  
 - **Save:** idUsuario, idPersonagem  
 - **Classe:** idClasse, nomeClasse, mulFisico, mulMagico  
 - **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idSala, xp, nivel, idClasse, quantidadeOuro
 - **Habilidade:** idHabilidade, nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown, idClasse  
 - **Inventario:** idPersonagem, espacoDisponivel, capacidade
-- **IntanciaItem:** idInstaciaItem, idItem, idItemSala, idPersonagem, quantidadeItem, equipado
+- **IntanciaItem:** idInstaciaItem, idItem, idItemSala, quantidadeItem, equipado
 - **Sala:** idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste, idRegiao
 - **Regiao:** idRegiao, nomeRegiao, descricaoRegiao
 - **Item:** idItem, nomeItem, precoItem, tipoItem, raridade  
 - **Consumivel:** idItem, nomeItem, precoItem, raridade, incrementoVidaAtual, incrementoStaminaAtual  
 - **Equipavel:** idItem, nomeItem, precoItem, raridade,  incrementoVidaBase, incrementoDefesa, mulFisico, mulMagico 
-- **Missao:** idMissao, nomeMissao, descricao, idMissaoAnterior, xpRecompensa, idInstaciaItem, quatidadeOuro
-- **ObjetivoMissao:** idObjetivo, descricaoObjetivo, tipoObjetivo, quantidadeMeta, idMissao, idReferencia, tipoReferencia  
-- **ProgressoMissao:** idPersonagem, idObjetivo, progressoOjetivo, concluida  
+- **Missao:** idMissao, nomeMissao, descricaoMissao, idMissaoSeguinte, xpRecompensa, idItemRecompensa, quatidadeOuro
+- **ObjetivoMissao:** idObjetivo, descricaoObjetivo, quantidadeMeta, idMissao, idMonstro, idSala 
+- **ProgressoMissao:** idPersonagem, idObjetivoMissao, progressoOjetivo, concluida  
 - **Loja:** idLoja, nomeLoja, idSala
-- **InstanciaItemLoja:** idInstaciaItemLoja, idItem, idLoja, quantidadeItem, precoItem
+- **Catalogo:** idLoja, idItem
 
 ## Relacionamentos
 
@@ -141,9 +141,9 @@
 - Um InstanciaMonstro pode ser referenciado por um ObjetivoMissao.
 - Cardinalidade: (0:n) (1:1)
 
-**ObjetivoMissao referencia Regiao:**
-- Um ObjetivoMissao pode referenciar uma Regiao.
-- Uma Regiao pode ser referenciada por um ObjetivoMissao.
+**ObjetivoMissao referencia Sala:**
+- Um ObjetivoMissao pode referenciar nenhuma ou varias Salas.
+- Uma Sala pode ser referenciada por um ObjetivoMissao.
 - Cardinalidade: (1:1) (1:1)
 
 **Regiao tem Salas:**
@@ -151,10 +151,10 @@
 - Uma Sala pertence a uma única Regiao.
 - Cardinalidade: (1:N) (1:1)
 
-**InstanciaMonstro esta em Regiao:**
-- Uma InstanciaMonstro esta em uma Regiao.
-- Uma Regiao pode ter vários ou nenhuma InstanciaMonstro.
-- Cardinalidade: (1:N) (1:N)
+**Monstro esta em Regiao:**
+- Um Monstro pode estar em uma única Regiao.
+- Uma Regiao pode ter vários Monstros.
+- Cardinalidade: (1:1) (1:N)
 
 **ObjetivoMissao conclui ProgressoMissao:**
 - Um ObjetivoMissao pode concluir um ProgressoMissao.
@@ -185,7 +185,7 @@
 **Sala possui Loja:**
 - Uma Sala pode ter uma Loja.
 - Uma Loja pertence a uma única Sala.
-- Cardinalidade: (1:1) (1:1)
+- Cardinalidade: (0:1) (1:1)
 
 
 ---

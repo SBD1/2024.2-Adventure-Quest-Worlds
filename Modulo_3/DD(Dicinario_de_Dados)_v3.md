@@ -8,9 +8,9 @@
 | Nome Variável |     Tipo     |             Descrição           | Restrição | Chave |
 | :-----------: | :----------: | :-----------------------------: | :-------: | :---: |
 |   idUsuario   |     int      | Identificador único do usuário |  NOT NULL |   PK  |
-|      login    | varchar[20]   |  Nome de usuário para login      |  NOT NULL |   -   |
-|     senha     | varchar[20]   | Senha do usuário             |  NOT NULL |   -   |
-| qtdPersonagem |     int     | Número de personagens do usuário |  NOT NULL |   -   |
+|      login    | varchar[50]   |  Nome de usuário para login      |  NOT NULL |   -   |
+|     senha     | varchar[50]   | Senha do usuário             |  NOT NULL |   -   |
+| qtdPersonagem |     int     | Número de personagens do usuário entre 0 e 3 |  NOT NULL |   -   |
 
 ---
 
@@ -33,7 +33,7 @@
 |    idPersonagem     |     int      |    Identificador único do personagem  |  NOT NULL |   PK  |
 |      idSala        |     int      |    Identificador da sala onde o personagem está |  NOT NULL |   FK  |
 |       idClasse      |     int      |    Identificador da classe do personagem |  NOT NULL |   FK  |
-|      nomePersonagem   | varchar[20]   | Nome do personagem                  |  NOT NULL |   -   |
+|      nomePersonagem   | varchar[50]   | Nome do personagem                  |  NOT NULL |   -   |
 | nivel                  | int         | Nível atual do personagem                    | NOT NULL  | -     |
 | xpAtual                | int         | XP atual do personagem                       | NOT NULL  | -     |
 | staminaAtualPersonagem|     int     |   Stamina atual do personagem     |  NOT NULL |   -   |
@@ -53,7 +53,7 @@
 | Nome Variável |     Tipo     |          Descrição         | Restrição | Chave |
 | :-----------: | :----------: | :------------------------: | :-------: | :---: |
 |   idClasse    |     int      | Identificador único da classe |  NOT NULL |  PK   |
-|  nomeClasse   | varchar[30]   |        Nome da classe        |  NOT NULL |  -   |
+|  nomeClasse   | varchar[50]   |        Nome da classe        |  NOT NULL |  -   |
 |    mulFisico  |    decimal    | Multiplicador de ataque físico |  NOT NULL |  -   |
 |   mulMagico   |    decimal    |  Multiplicador de ataque mágico |  NOT NULL |  -   |
 ---
@@ -64,7 +64,7 @@
 | Nome Variável   |     Tipo     |             Descrição            | Restrição | Chave |
 | :--------------: | :----------: | :-----------------------------: | :-------: | :---: |
 |   idHabilidade  |     int      |  Identificador único da habilidade |  NOT NULL |   PK  |
-|  nomeHabilidade | varchar[30]   |       Nome da habilidade         |  NOT NULL |  -   |
+|  nomeHabilidade | varchar[50]   |       Nome da habilidade         |  NOT NULL |  -   |
 |     danoFisico    |     int      |       Dano físico da habilidade     |  NOT NULL |  -   |
 |    danoMagico    |     int      |      Dano mágico da habilidade     |  NOT NULL |  -   |
 |   custoStamina   |     int      | Custo de stamina da habilidade   |  NOT NULL |  -   |
@@ -89,7 +89,7 @@
 | :-----------: | :----------: | :-----------------------: | :-------: | :---: |
 |    idSala     |     int      | Identificador único da sala |  NOT NULL |  PK   |
 |    idRegiao   |     int      | Identificador da região da sala |  NOT NULL |  FK   |
-|     nomeSala   | varchar[20]   |        Nome da sala         |  NOT NULL |  -   |
+|     nomeSala   | varchar[50]   |        Nome da sala         |  NOT NULL |  -   |
 |    salaNorte  |     int      | Identificador da sala ao norte  |   NULL  |   -   |
 |     salaSul    |     int      | Identificador da sala ao sul   |   NULL   |   -   |
 |    salaLeste    |     int      |  Identificador da sala ao leste  |   NULL   |   -   |
@@ -102,7 +102,7 @@
 | Nome Variável |     Tipo     |         Descrição         | Restrição | Chave |
 | :-----------: | :----------: | :-----------------------: | :-------: | :---: |
 |   idRegiao    |     int      | Identificador único da região |  NOT NULL |  PK   |
-|  nomeRegiao   | varchar[20]   |        Nome da região       |  NOT NULL |  -   |
+|  nomeRegiao   | varchar[50]   |        Nome da região       |  NOT NULL |  -   |
 |   descricaoRegiao | varchar[200] | Descrição da região         |  NOT NULL |  -   |
 
 ---
@@ -124,7 +124,7 @@
 | Nome Variável |     Tipo     |          Descrição          | Restrição | Chave |
 | :-----------: | :----------: | :-------------------------: | :-------: | :---: |
 |    idItem     |     int      |   Identificador único do item  |  NOT NULL |   PK  |
-|    nomeItem   | varchar[20]   |         Nome do item           |  NOT NULL |  -   |
+|    nomeItem   | varchar[50]   |         Nome do item           |  NOT NULL |  -   |
 |   precoItem    |     int      |         Valor do item         |  NOT NULL |  -   |
 |    tipoItem   |     int      | Tipo do item (consumivel = 0, equipavel = 1) |  NOT NULL |  -   |
 |    raridade   |     int      | Raridade do item reflete nivel Personagem |  NOT NULL |  -   |
@@ -158,11 +158,12 @@
 | Nome Variável |     Tipo     |            Descrição          | Restrição | Chave |
 | :-----------: | :----------: | :---------------------------: | :-------: | :---: |
 |   idMonstro   |     int      | Identificador único do monstro|  NOT NULL |   PK  |
-|    nomeMonstro| varchar[20]   |       Nome do monstro        |  NOT NULL |  -   |
+|    nomeMonstro| varchar[50]   |       Nome do monstro        |  NOT NULL |  -   |
 |   vidaMonstro |     int      |       Vida do monstro         |  NOT NULL |   -  |
 |  danoMonstro  |     int      |       Dano do monstro         |  NOT NULL |   -  |
 |  defMonstro  |     int      |       Defesa do monstro        |  NOT NULL |  -   |
 | tipoMonstro|     bool      |  Tipo do monstro (minion=0, boss=1) |  NOT NULL |   -  |
+| idRegiao| int | Região do monstro | NOT NULL | FK |
 | qntXP| int | Quantidade de Xp q o monstro da ao ser morto| NOT NULL| -|
 
 ---
@@ -175,9 +176,6 @@
 |    vidaAtual     |     int      |     Vida atual do monstro         |  NOT NULL |  -   |
 |    idSala        |     int      | Identificador da sala onde o monstro está |  NOT NULL |  FK  |
 |    idMonstro     |     int      | Identificador do monstro da instância |  NOT NULL |  FK  |
-|    idRegiao      |     int      | Identificador da região do monstro |  NOT NULL |  FK  |
-|    idRegiao      |     int      | Identificador da região do monstro |  NOT NULL |  FK  |
-
 
 ---
 ### **Minion**
@@ -206,11 +204,11 @@
 | Nome Variável |     Tipo     |            Descrição          | Restrição | Chave |
 | :-----------: | :----------: | :--------------------------: | :-------: | :---: |
 |   idMissao   |     int      | Identificador único da missão |  NOT NULL |   PK  |
-|   nomeMissao  | varchar(50)  | Nome da missão               |  NOT NULL |   -   |
-| descricaoMissao | varchar(200) | Descrição da missão         |  NOT NULL |   -   |
+|   nomeMissao  | varchar[50]  | Nome da missão               |  NOT NULL |   -   |
+| descricaoMissao | varchar[200] | Descrição da missão         |  NOT NULL |   -   |
 | xpRecompensa  |     int      | XP dado ao completar a missão |  NOT NULL |   -   |
 | idItemRecompensa | int      | ID do item dado como recompensa (opcional) |   NULL   |   FK  |
-| idMissaoAnterior | int      | Identificador da missão anterior (NULL se for a primeira) |   NULL   |   FK  |
+| idMissaoSeguinte | int      | ID da missão seguinte (opcional) |   NULL   |   FK  |
 | quantidadeOuro | int | Quantidade de ouro dada como recompensa | NOT NULL | - |
 
 ---
@@ -233,11 +231,10 @@
 | :-----------: | :----------: | :---------------------------: | :-------: | :---: |
 |   idObjetivo  |     int      | Identificador único do objetivo |  NOT NULL |   PK  |
 |   idMissao   |     int      | Identificador da missão         |  NOT NULL |   FK  |
-| descricaoObjetivo | varchar(200) | Descrição do objetivo   |  NOT NULL |   -   |
-| tipoObjetivo  | int | Tipo do objetivo (1=derrotar monstros, 2=alcançar região, 3=percorrer salas) |  NOT NULL |   -   |
-| quantidadeMeta | int | Quantidade a ser atingida | NOT NULL | - |
-| idReferencia | int | ID da entidade a ser referenciada (Monstro, Região, Sala) | NOT NULL | - |
-| tipoReferencia | int | Tipo da entidade referenciada (Monstro=1, Região=2, Sala=3) | NOT NULL | - |
+| descricaoObjetivo | varchar[200] | Descrição do objetivo   |  NOT NULL |   -   |
+| quantidadeMeta |     int      | Quantidade necessária para completar o objetivo |  NOT NULL |   -   |
+| idInstanciaMonstro | int | ID da instância do monstro a ser morto | NOT NULL | FK |
+| idSala | int | ID da sala onde o monstro está | NOT NULL | FK |
 
 ### **Loja**
 #### Descrição: Entidade que armazena os dados das lojas do jogo.
@@ -246,7 +243,7 @@
 | :-----------: | :----------: | :-----------------------: | :-------: | :---: |
 |    idLoja     |     int      | Identificador único da loja |  NOT NULL |  PK   |
 |    idSala     |     int      | Identificador da sala onde a loja está |  NOT NULL |  FK   |
-|   nomeLoja    | varchar[20]   |        Nome da loja         |  NOT NULL |  -   |
+|   nomeLoja    | varchar[50]   |        Nome da loja         |  NOT NULL |  -   |
 
 ### **Catalogo**
 #### Descrição: Entidade que armazena os itens disponíveis nas lojas.
@@ -260,9 +257,9 @@
 
 | Versão |    Data    | Descrição               | Autor                                                                                                                 |
 | :----: | :--------: | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| [`1.0`](/Modulo_1/DD(Dicinario_de_Dados).md)  | 26/11/2024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |
-| [`2`](/Modulo_2/DD(Dicinario_de_Dados)_v2.md)  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
-| [`2.1`](/Modulo_2/DD(Dicinario_de_Dados)_v2.1.md)  | 14/01/2025 | Aplica novas ideias DD         |  [Henrique ](https://github.com/henriquecq)                         |
-| [`3`](/Modulo_3/DD(Dicinario_de_Dados)_v3.md)  | 27/01/2025 | Correção baseada nas novas features | [Henrique ](https://github.com/henriquecq)                         |
-| [`3.1`](/Modulo_3/DD(Dicinario_de_Dados)_v3.md)  | 01/02/2025 | Novas features | [Henrique ](https://github.com/henriquecq)                         |
+| [`1.0`](/Modulo_1/DD(Dicinario_de_Dados).md)  | 26/11/5024 | Criação do documento DD | [Henrique ](https://github.com/henriquecq)                          |
+| [`2`](/Modulo_2/DD(Dicinario_de_Dados)_v2.md)  | 29/11/5024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
+| [`2.1`](/Modulo_2/DD(Dicinario_de_Dados)_v2.1.md)  | 14/01/5025 | Aplica novas ideias DD         |  [Henrique ](https://github.com/henriquecq)                         |
+| [`3`](/Modulo_3/DD(Dicinario_de_Dados)_v3.md)  | 27/01/5025 | Correção baseada nas novas features | [Henrique ](https://github.com/henriquecq)                         |
+| [`3.1`](/Modulo_3/DD(Dicinario_de_Dados)_v3.md)  | 01/02/5025 | Novas features | [Henrique ](https://github.com/henriquecq)                         |
 
