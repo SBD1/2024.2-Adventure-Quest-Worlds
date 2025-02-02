@@ -22,7 +22,7 @@
 * ProgressoMissao
 * Loja
 * InstanciaItem
-* InstanciaItemLoja
+* Catalogo
 
 ## Atributos
 
@@ -39,9 +39,9 @@
 - **IntanciaItem:** idInstaciaItem, idItem, idItemSala, idPersonagem, quantidadeItem, equipado
 - **Sala:** idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste, idRegiao
 - **Regiao:** idRegiao, nomeRegiao, descricaoRegiao
-- **Item:** idItem, nomeItem, valorItem, tipoItem, raridade  
-- **Consumivel:** idItem, nomeItem, valorItem, raridade, incrementoVidaAtual, incrementoStaminaAtual  
-- **Equipavel:** idItem, nomeItem, valorItem, raridade,  incrementoVidaBase, incrementoDefesa, mulFisico, mulMagico 
+- **Item:** idItem, nomeItem, precoItem, tipoItem, raridade  
+- **Consumivel:** idItem, nomeItem, precoItem, raridade, incrementoVidaAtual, incrementoStaminaAtual  
+- **Equipavel:** idItem, nomeItem, precoItem, raridade,  incrementoVidaBase, incrementoDefesa, mulFisico, mulMagico 
 - **Missao:** idMissao, nomeMissao, descricao, idMissaoAnterior, xpRecompensa, idInstaciaItem, quatidadeOuro
 - **ObjetivoMissao:** idObjetivo, descricaoObjetivo, tipoObjetivo, quantidadeMeta, idMissao, idReferencia, tipoReferencia  
 - **ProgressoMissao:** idPersonagem, idObjetivo, progressoOjetivo, concluida  
@@ -171,20 +171,16 @@
 - Um InstanciaItem pode ser equipado por um Personagem.
 - Cardinalidade: (0:1) (1:1)
 
-**Personagem compra InstanciaItemLoja:**
-- Um Personagem pode comprar nenhum ou várias InstanciaItemLoja.
-- Uma InstanciaItemLoja pode ser comprada por um Personagem.
+**Loja possui Catalogo:**
+- Uma Loja possui um Catalogo.
+- Um Catalogo pertence a uma única Loja.
+- Cardinalidade: (1:1) (1:1)
+
+**Catalogo vende Item:**
+- Um Catalogo pode vende vários Itens.
+- Um Item pode ser vendido em um Catalogo.
 - Cardinalidade: (0:N) (1:1)
 
-**Loja possui InstanciaItemLoja:**
-- Uma Loja pode ter várias InstanciaItemLoja.
-- Uma InstanciaItemLoja pertence a uma única Loja.
-- Cardinalidade: (1:N) (1:1)
-
-**InstanciaItemLoja referencia Item:**
-- Uma InstanciaItemLoja pode referenciar um Item.
-- Um Item pode ser referenciado por uma InstanciaItemLoja.
-- Cardinalidade: (1:1) (1:1)
 
 **Sala possui Loja:**
 - Uma Sala pode ter uma Loja.

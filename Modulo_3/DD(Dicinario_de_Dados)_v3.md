@@ -124,8 +124,9 @@
 | :-----------: | :----------: | :-------------------------: | :-------: | :---: |
 |    idItem     |     int      |   Identificador único do item  |  NOT NULL |   PK  |
 |    nomeItem   | varchar[20]   |         Nome do item           |  NOT NULL |  -   |
-|   valorItem    |     int      |         Valor do item         |  NOT NULL |  -   |
+|   precoItem    |     int      |         Valor do item         |  NOT NULL |  -   |
 |    tipoItem   |     int      | Tipo do item (consumivel = 0, equipavel = 1) |  NOT NULL |  -   |
+|    raridade   |     int      | Raridade do item reflete nivel Personagem |  NOT NULL |  -   |
 ---
 ### **Consumivel**
 #### Descrição: Entidade que armazena os dados dos itens consumíveis.
@@ -245,17 +246,13 @@
 |    idSala     |     int      | Identificador da sala onde a loja está |  NOT NULL |  FK   |
 |   nomeLoja    | varchar[20]   |        Nome da loja         |  NOT NULL |  -   |
 
-### **InstanciaItemLoja**
-#### Descrição: Entidade que armazena os dados da instância de um item em uma loja.
+### **Catalogo**
+#### Descrição: Entidade que armazena os itens disponíveis nas lojas.
 #### Observações: Uma loja pode ter vários itens.
 | Nome Variável        |     Tipo     |                Descrição            | Restrição | Chave |
 | :-------------------: | :----------: | :--------------------------------: | :-------: | :---: |
-| idInstanciaItemLoja  |     int      | Identificador único da instância do item|  NOT NULL |  PK   |
-|    idLoja            |     int      | Identificador da loja onde o item está |  NOT NULL |  FK  |
-|    idItem            |     int      | Identificador do item da instância |  NOT NULL |  FK  |
-|    quantidadeItem    |     int      | Quantidade de itens na loja     |  NOT NULL |   -   |
-|   precoItem         |     int      | Preço do item na loja           |  NOT NULL |   -   |
-
+|   IdLoja             |     int      | Identificador único da loja         |  NOT NULL |  FK   |
+|   IdItem             |     int      | Identificador único do item         |  NOT NULL |  FK   |
 
 ## Histórico de Versões
 
