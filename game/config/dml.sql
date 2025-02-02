@@ -1,3 +1,4 @@
+-- SQLBook: Code
 INSERT INTO classe (idClasse, nomeClasse, mulFisico, mulMagico) VALUES
     (1,'Guerreiro', 1.5, 0.5),
     (2,'Mago', 0.6, 1.8),

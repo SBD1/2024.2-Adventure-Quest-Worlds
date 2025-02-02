@@ -53,10 +53,9 @@
 | Nome Variável |     Tipo     |          Descrição         | Restrição | Chave |
 | :-----------: | :----------: | :------------------------: | :-------: | :---: |
 |   idClasse    |     int      | Identificador único da classe |  NOT NULL |  PK   |
-|       idHabilidade |     int      | Identificador da habilidade da classe |  NOT NULL |   FK  |
 |  nomeClasse   | varchar[30]   |        Nome da classe        |  NOT NULL |  -   |
-|    mulFisico  |    float    | Multiplicador de ataque físico |  NOT NULL |  -   |
-|   mulMagico   |    float    |  Multiplicador de ataque mágico |  NOT NULL |  -   |
+|    mulFisico  |    decimal    | Multiplicador de ataque físico |  NOT NULL |  -   |
+|   mulMagico   |    decimal    |  Multiplicador de ataque mágico |  NOT NULL |  -   |
 ---
 ### **Habilidade**
 #### Descrição: Entidade que armazena os dados das habilidades dos personagens.
@@ -70,6 +69,8 @@
 |    danoMagico    |     int      |      Dano mágico da habilidade     |  NOT NULL |  -   |
 |   custoStamina   |     int      | Custo de stamina da habilidade   |  NOT NULL |  -   |
 |  custoCooldown  |     int      |  Cooldown da habilidade         |  NOT NULL |   -  |
+|   idClasse      |     int      |  Identificador da classe da habilidade |  NOT NULL |  FK  |
+
 ---
 ### **Inventario**
 #### Descrição: Entidade que armazena os itens do personagem.
@@ -175,6 +176,7 @@
 |    idSala        |     int      | Identificador da sala onde o monstro está |  NOT NULL |  FK  |
 |    idMonstro     |     int      | Identificador do monstro da instância |  NOT NULL |  FK  |
 |    idRegiao      |     int      | Identificador da região do monstro |  NOT NULL |  FK  |
+|    idRegiao      |     int      | Identificador da região do monstro |  NOT NULL |  FK  |
 
 
 ---
@@ -193,7 +195,7 @@
 | :-----------: | :----------: | :--------------------------------: | :-------: | :---: |
 |   idMonstro   |     int      |  Identificador único do monstro     |  NOT NULL |  FK   |
 |   idItem      |     int      | Identificador único do item dropado|  NOT NULL |   FK  |
-|   mulBoss    |    int    | Multiplicador de drop de item      |  NOT NULL |   -  |
+|   mulBoss    |    decimal    | Multiplicador de stats        |  NOT NULL |   -  |
 | fraseBoss| varchar[200] | Frase do boss ao ser derrotado | NOT NULL | - |
 
 ---

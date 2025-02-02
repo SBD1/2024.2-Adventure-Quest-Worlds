@@ -41,6 +41,30 @@ def get_sala(cur, salaAtual):
     cur.execute(f"SELECT * FROM sala WHERE idSala = %s;",(salaAtual,))
     sala = cur.fetchall()[0]
     return sala
+
+def get_mobs_sala(cur, salaAtual):
+    cur.execute("""
+    SELECT * FROM instanciamonstro AS i
+    JOIN minion as min on i.idmonstro = min.idmonstro
+    WHERE i.idsala = %s;"""
+    ,(salaAtual,))
+    
+    minions = cur.fetchall()
+    
+    cur.execute("""
+    SELECT * FROM instanciamonstro AS i
+    JOIN boss on i.idmonstro = boss.idmonstro
+    WHERE i.idsala = %s;""",
+    (salaAtual,))
+    
+    boss = cur.fetchall()
+
+    mobs = minions + boss
+
+    if not mobs:
+        return None
+    
+    return mobs
         
 def iniciar_game(personagemId, conn, cur):
     clear()
@@ -49,7 +73,6 @@ def iniciar_game(personagemId, conn, cur):
     personagem_atual = cur.fetchall()[0]
 
     while True:
-        clear()
         cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
         personagem_atual = cur.fetchall()[0]
         sala_info = get_sala(cur, personagem_atual['idsala'])
@@ -64,18 +87,35 @@ def iniciar_game(personagemId, conn, cur):
         if sala_info['salaoeste']:
             opcoes['oeste'] = 'Mover para o oeste'
         
-        
+        mobs = get_mobs_sala(cur, personagem_atual['idsala'])
+        if not mobs:
+            pass
+        else:
+            print("Mobs na sala:")
+            for i,mob in enumerate(mobs, start=1):
+                print(f"{i} - {mob['nomemonstro']}")
+                
+            sla = input("Escolha o mob que você deseja batalhar: ")
+            # sla é o index mob
+            0
+            mob[0]['idinstancia']
+
         print("Opções:")
         for k,v in opcoes.items():
             print(f"[{k}] - {v}")
         
-        print("[0] - Sair do jogo")
+        print("[0] - Sair do jogo \n")
         
         direcao = input("Digite a direção que deseja ir: ")
         if direcao == '0':
             sair()
-        
-        mover_personagem(conn, cur, personagemId, sala_info[f'sala{direcao}'])
+        elif not direcao in opcoes.keys():
+            clear()
+            print(100* '-')
+            print("Opção inválida!")
+            print(100* '-')
+        else:
+            mover_personagem(conn, cur, personagemId, sala_info[f'sala{direcao}'])
 
 def login(conn, cur):
     clear()

@@ -1,3 +1,4 @@
+-- SQLBook: Code
 CREATE TABLE IF NOT EXISTS Item (
     idItem INT PRIMARY KEY,
     tipoItem VARCHAR(20) NOT NULL
