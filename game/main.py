@@ -118,7 +118,7 @@ def iniciar_game(personagemId, conn, cur):
             sair()
         elif direcao == 'lutar':
             clear()
-            start_batalha(cur, personagemId,
+            start_batalha(cur, conn, personagemId,
                           batalha_info['idinstanciamonstro'])
             return None
 
@@ -284,7 +284,7 @@ def selecionar_save(userId, cur, conn):
 def get_status_personagem(cur, idPersonagem):
     cur.execute(
         """
-        SELECT staminaAtualPersonagem, vidaAtualPersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idClasse
+        SELECT staminaAtualPersonagem, vidaAtualPersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idClasse, vidabasepersonagem, staminabasepersonagem
         FROM Personagem
         WHERE idPersonagem = %s
         """,
@@ -391,7 +391,75 @@ def get_habilidades(cur, idClasse):
     return jogador_habilidades
 
 
-def start_batalha(cur, idPersonagem, idInstancia):
+def update_personagem_vida_stamina(conn, cur, idPersonagem, newVida, newStamina):
+    cur.execute(
+        """
+        UPDATE Personagem
+        SET vidaAtualPersonagem = %s,
+            staminaAtualPersonagem = %s
+        WHERE idPersonagem = %s;
+        """,
+        (newVida, newStamina, idPersonagem,),
+    )
+    conn.commit()
+
+
+def update_monstro_void(conn, cur, idInstanciaMonstro):
+    cur.execute(
+        """
+        UPDATE instanciaMonstro
+        SET idSala = 0
+        WHERE idInstanciaMonstro = %s;
+        """, 
+        (idInstanciaMonstro,),
+    )
+    conn.commit()
+
+
+def update_monstro_status(conn, cur, idInstanciaMonstro):
+    cur.execute(
+        """
+        UPDATE instanciaMonstro AS i
+        SET vidaAtual = COALESCE(minion.vidaMonstro, boss.vidaMonstro)
+        FROM Monstro m
+        LEFT JOIN Minion minion ON m.idMonstro = minion.idMonstro
+        LEFT JOIN Boss boss     ON m.idMonstro = boss.idMonstro
+        WHERE i.idMonstro = m.idMonstro AND i.idInstanciaMonstro = %s;
+        """,
+        (idInstanciaMonstro,),
+    )
+    conn.commit()
+
+
+
+def update_vida_stamina(conn, cur, idPersonagem):
+    cur.execute(
+        """
+        UPDATE Personagem
+        SET idSala = 1,
+            vidaAtualPersonagem = vidaBasePersonagem,
+            staminaAtualPersonagem = staminaBasePersonagem
+        WHERE idPersonagem = %s;
+        """,
+        (idPersonagem,),
+    )
+    conn.commit()
+
+
+def update_instancia_monstro_hp(conn, cur, idInstanciaMonstro, newVida):
+    cur.execute(
+        """
+        UPDATE instanciaMonstro
+        SET vidaAtual = %s
+        WHERE idInstanciaMonstro = %s;
+        """,
+        (newVida, idInstanciaMonstro,),
+    )
+    conn.commit()
+
+
+
+def start_batalha(cur, conn, idPersonagem, idInstancia):
 
     # coletando informações
     ataque_fisico_total, ataque_magico_total = get_personagem_forca(
@@ -402,6 +470,8 @@ def start_batalha(cur, idPersonagem, idInstancia):
     personagem_stamina = personagem['staminaatualpersonagem']
     personagem_defesa = personagem['defensepersonagem']
     personagem_classe = personagem['idclasse']
+    personagem_vida_base = personagem['vidabasepersonagem']
+    personagem_stamina_base = personagem['staminabasepersonagem']
 
     habilidades = get_habilidades(cur, personagem_classe)
 
@@ -490,16 +560,28 @@ def start_batalha(cur, idPersonagem, idInstancia):
         personagem_vida_atual -= monstro_dano - personagem_defesa
         round_log['Dano Recebido'] = monstro_dano - personagem_defesa
 
-        personagem_stamina += recuperacao_stamina_round
-        round_log['Stamina Recuperada'] = recuperacao_stamina_round
+        # verifica stamina
+        if personagem_stamina + recuperacao_stamina_round > personagem_stamina_base:
+            recuperacao_stamina_round = personagem_stamina_base - personagem_stamina
+            round_log['Stamina Recuperada'] = recuperacao_stamina_round
+        else:
+            personagem_stamina += recuperacao_stamina_round
+            round_log['Stamina Recuperada'] = recuperacao_stamina_round
         log[round_num] = round_log
 
         round_num += 1
 
     if monstro_vida_atual <= 0:
         print("Você venceu!")
+        update_personagem_vida_stamina(conn, cur, idPersonagem, personagem_vida_atual, personagem_stamina)
+        update_monstro_void(conn, cur, idInstancia)
+        update_monstro_status(conn, cur, idInstancia)
+        iniciar_game(idPersonagem, conn, cur)
     elif personagem_vida_atual <= 0:
         print("Você perdeu!")
+        update_vida_stamina(conn, cur, idPersonagem)
+        update_instancia_monstro_hp(conn, cur, idInstancia, monstro_vida_atual)
+        iniciar_game(idPersonagem, conn, cur)
     else:
         print("Batalha encerrada sem resultado claro.")
 
