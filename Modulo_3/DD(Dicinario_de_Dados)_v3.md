@@ -43,6 +43,7 @@
 |  defesaPersonagem   |     int      |    Defesa do personagem             |  NOT NULL |   -   |
 |   ataqueFisico      |     int      |   Ataque físico do personagem        |  NOT NULL |   -   |
 |   ataqueMagico      |     int      | Ataque mágico do personagem         |  NOT NULL |   -   |
+| quantidadeOuro      |     int      | Quantidade de ouro do personagem     |  NOT NULL |   -   |
 
 ---
 ### **Classe**
@@ -79,7 +80,6 @@
 |   idPersonagem |     int      | Identificador do personagem dono do inventário | NOT NULL|   FK |
 |espacoDisponivel |     int      | Espaço disponível no inventário |  NOT NULL |   -   |
 |   capacidade   |     int      |  Capacidade do inventário   |  NOT NULL |   -   |
-| quantidadeOuro   |    int     | Quantidade de ouro do personagem   |  NOT NULL |   -   |
 ---
 ### **Sala**
 #### Descrição: Entidade que armazena os dados das salas do jogo.
@@ -124,8 +124,9 @@
 | :-----------: | :----------: | :-------------------------: | :-------: | :---: |
 |    idItem     |     int      |   Identificador único do item  |  NOT NULL |   PK  |
 |    nomeItem   | varchar[20]   |         Nome do item           |  NOT NULL |  -   |
-|   valorItem    |     int      |         Valor do item         |  NOT NULL |  -   |
+|   precoItem    |     int      |         Valor do item         |  NOT NULL |  -   |
 |    tipoItem   |     int      | Tipo do item (consumivel = 0, equipavel = 1) |  NOT NULL |  -   |
+|    raridade   |     int      | Raridade do item reflete nivel Personagem |  NOT NULL |  -   |
 ---
 ### **Consumivel**
 #### Descrição: Entidade que armazena os dados dos itens consumíveis.
@@ -173,6 +174,7 @@
 |    vidaAtual     |     int      |     Vida atual do monstro         |  NOT NULL |  -   |
 |    idSala        |     int      | Identificador da sala onde o monstro está |  NOT NULL |  FK  |
 |    idMonstro     |     int      | Identificador do monstro da instância |  NOT NULL |  FK  |
+|    idRegiao      |     int      | Identificador da região do monstro |  NOT NULL |  FK  |
 
 
 ---
@@ -207,6 +209,7 @@
 | xpRecompensa  |     int      | XP dado ao completar a missão |  NOT NULL |   -   |
 | idItemRecompensa | int      | ID do item dado como recompensa (opcional) |   NULL   |   FK  |
 | idMissaoAnterior | int      | Identificador da missão anterior (NULL se for a primeira) |   NULL   |   FK  |
+| quantidadeOuro | int | Quantidade de ouro dada como recompensa | NOT NULL | - |
 
 ---
 
@@ -234,6 +237,22 @@
 | idReferencia | int | ID da entidade a ser referenciada (Monstro, Região, Sala) | NOT NULL | - |
 | tipoReferencia | int | Tipo da entidade referenciada (Monstro=1, Região=2, Sala=3) | NOT NULL | - |
 
+### **Loja**
+#### Descrição: Entidade que armazena os dados das lojas do jogo.
+#### Observações: Uma loja está em uma sala e pode ter vários itens.
+| Nome Variável |     Tipo     |         Descrição         | Restrição | Chave |
+| :-----------: | :----------: | :-----------------------: | :-------: | :---: |
+|    idLoja     |     int      | Identificador único da loja |  NOT NULL |  PK   |
+|    idSala     |     int      | Identificador da sala onde a loja está |  NOT NULL |  FK   |
+|   nomeLoja    | varchar[20]   |        Nome da loja         |  NOT NULL |  -   |
+
+### **Catalogo**
+#### Descrição: Entidade que armazena os itens disponíveis nas lojas.
+#### Observações: Uma loja pode ter vários itens.
+| Nome Variável        |     Tipo     |                Descrição            | Restrição | Chave |
+| :-------------------: | :----------: | :--------------------------------: | :-------: | :---: |
+|   IdLoja             |     int      | Identificador único da loja         |  NOT NULL |  FK   |
+|   IdItem             |     int      | Identificador único do item         |  NOT NULL |  FK   |
 
 ## Histórico de Versões
 
@@ -243,4 +262,5 @@
 | [`2`](/Modulo_2/DD(Dicinario_de_Dados)_v2.md)  | 29/11/2024 | Melhorias no DD         | [Bruno ](https://github.com/BrunoBReis)                          |
 | [`2.1`](/Modulo_2/DD(Dicinario_de_Dados)_v2.1.md)  | 14/01/2025 | Aplica novas ideias DD         |  [Henrique ](https://github.com/henriquecq)                         |
 | [`3`](/Modulo_3/DD(Dicinario_de_Dados)_v3.md)  | 27/01/2025 | Correção baseada nas novas features | [Henrique ](https://github.com/henriquecq)                         |
+| [`3.1`](/Modulo_3/DD(Dicinario_de_Dados)_v3.md)  | 01/02/2025 | Novas features | [Henrique ](https://github.com/henriquecq)                         |
 
