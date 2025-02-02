@@ -41,6 +41,21 @@ def get_sala(cur, salaAtual):
     cur.execute(f"SELECT * FROM sala WHERE idSala = %s;",(salaAtual,))
     sala = cur.fetchall()[0]
     return sala
+
+def get_mobs_sala(cur, salaAtual):
+    cur.execute("""
+    SELECT * FROM instanciamonstro AS i
+    JOIN monstro as min on i.idmonstro = min.idmonstro
+    WHERE i.idsala = %s;"""
+    ,(salaAtual,))
+
+    mobs = cur.fetchall()
+
+    if not mobs:
+        return None
+
+    return mobs
+    
         
 def iniciar_game(personagemId, conn, cur):
     clear()
@@ -52,7 +67,8 @@ def iniciar_game(personagemId, conn, cur):
         cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
         personagem_atual = cur.fetchall()[0]
         sala_info = get_sala(cur, personagem_atual['idsala'])
-        print(f"Você está na sala {sala_info['nomesala']}\n\n")
+        print(f"Você está na sala {sala_info['nomesala']}:\n\n")  
+
         opcoes = {}
         if sala_info['salanorte']:
             opcoes['norte'] = 'Mover para o norte'
@@ -63,7 +79,7 @@ def iniciar_game(personagemId, conn, cur):
         if sala_info['salaoeste']:
             opcoes['oeste'] = 'Mover para o oeste'
 
-        print("Opções:")
+        print("Opções:\n")
         for k,v in opcoes.items():
             print(f"[{k}] - {v}")
         
@@ -78,6 +94,8 @@ def iniciar_game(personagemId, conn, cur):
             print("Opção inválida!")
             print(100* '-')
         else:
+            print(100*"=")
+            print("\n")
             mover_personagem(conn, cur, personagemId, sala_info[f'sala{direcao}'])
 
 def login(conn, cur):
