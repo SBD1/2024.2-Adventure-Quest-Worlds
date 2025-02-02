@@ -56,6 +56,13 @@ def get_mobs_sala(cur, salaAtual):
 
     return mobs
     
+def getLoja(cur, salaAtual):
+    cur.execute(f"SELECT * FROM Loja WHERE idsala = %s;",(salaAtual,))
+    loja = cur.fetchall()
+    if not loja:
+        return None
+        print(loja)
+    return loja
         
 def iniciar_game(personagemId, conn, cur):
     clear()
