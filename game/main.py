@@ -41,30 +41,6 @@ def get_sala(cur, salaAtual):
     cur.execute(f"SELECT * FROM sala WHERE idSala = %s;",(salaAtual,))
     sala = cur.fetchall()[0]
     return sala
-
-def get_mobs_sala(cur, salaAtual):
-    cur.execute("""
-    SELECT * FROM instanciamonstro AS i
-    JOIN minion as min on i.idmonstro = min.idmonstro
-    WHERE i.idsala = %s;"""
-    ,(salaAtual,))
-    
-    minions = cur.fetchall()
-    
-    cur.execute("""
-    SELECT * FROM instanciamonstro AS i
-    JOIN boss on i.idmonstro = boss.idmonstro
-    WHERE i.idsala = %s;""",
-    (salaAtual,))
-    
-    boss = cur.fetchall()
-
-    mobs = minions + boss
-
-    if not mobs:
-        return None
-    
-    return mobs
         
 def iniciar_game(personagemId, conn, cur):
     clear()
@@ -86,19 +62,6 @@ def iniciar_game(personagemId, conn, cur):
             opcoes['leste'] = 'Mover para o leste'
         if sala_info['salaoeste']:
             opcoes['oeste'] = 'Mover para o oeste'
-        
-        mobs = get_mobs_sala(cur, personagem_atual['idsala'])
-        if not mobs:
-            pass
-        else:
-            print("Mobs na sala:")
-            for i,mob in enumerate(mobs, start=1):
-                print(f"{i} - {mob['nomemonstro']}")
-                
-            sla = input("Escolha o mob que você deseja batalhar: ")
-            # sla é o index mob
-            0
-            mob[0]['idinstancia']
 
         print("Opções:")
         for k,v in opcoes.items():
@@ -182,10 +145,11 @@ def criar_personagem(conn, cur, nome, classe):
     }
     sql_insert = f"""
     INSERT INTO Personagem (
-        nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, 
+        idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, 
         staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, 
-        ataqueMagico, idClasse, idSala
+        ataqueMagico, idClasse, idSala, nivel, xpAtual
     ) VALUES (
+        DEFAULT,
         %s,
         {valores_base['staminaBasePersonagem']},
         {valores_base['vidaBasePersonagem']},
@@ -195,7 +159,9 @@ def criar_personagem(conn, cur, nome, classe):
         {floor(valores_base['ataqueFisico'] * classe['mulfisico'])},
         {floor(valores_base['ataqueMagico'] * classe['mulmagico'])},
         %s,
-        1
+        1,
+        1,
+        0
     ) RETURNING idPersonagem;
     """
     cur.execute(sql_insert,(nome,classe['idclasse']))
