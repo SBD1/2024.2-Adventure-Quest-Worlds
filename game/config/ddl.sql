@@ -12,6 +12,12 @@ CREATE TABLE IF NOT EXISTS Usuario (
     qtdPersonagem INT CHECK (qtdPersonagem BETWEEN 0 AND 3)
 );
 
+CREATE TABLE IF NOT EXISTS Regiao (
+    idRegiao INT PRIMARY KEY,
+    nomeRegiao VARCHAR(50) NOT NULL,
+    descricaoRegiao VARCHAR(200) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS Monstro (
     idMonstro INT PRIMARY KEY,
     nomeMonstro VARCHAR(50) NOT NULL,
@@ -19,13 +25,8 @@ CREATE TABLE IF NOT EXISTS Monstro (
     danoMonstro INT NOT NULL,
     defMonstro INT NOT NULL,
     tipoMonstro BOOLEAN NOT NULL,
+    idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE SET NULL,
     qntXP INT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS Regiao (
-    idRegiao INT PRIMARY KEY,
-    nomeRegiao VARCHAR(50) NOT NULL,
-    descricaoRegiao VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Sala (
@@ -41,7 +42,6 @@ CREATE TABLE IF NOT EXISTS Sala (
 CREATE TABLE IF NOT EXISTS instanciaMonstro (
     idInstanciaMonstro INT PRIMARY KEY,
     idMonstro INT REFERENCES Monstro(idMonstro) ON DELETE CASCADE,
-    idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE SET NULL,
     vidaAtual INT NOT NULL,
     idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL
 );
