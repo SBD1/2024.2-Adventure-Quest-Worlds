@@ -43,7 +43,6 @@
 |  defesaPersonagem   |     int      |    Defesa do personagem             |  NOT NULL |   -   |
 |   ataqueFisico      |     int      |   Ataque físico do personagem        |  NOT NULL |   -   |
 |   ataqueMagico      |     int      | Ataque mágico do personagem         |  NOT NULL |   -   |
-| quantidadeOuro      |     int      | Quantidade de ouro do personagem     |  NOT NULL |   -   |
 
 ---
 ### **Classe**
@@ -81,6 +80,7 @@
 |   idPersonagem |     int      | Identificador do personagem dono do inventário | NOT NULL|   FK |
 |espacoDisponivel |     int      | Espaço disponível no inventário |  NOT NULL |   -   |
 |   capacidade   |     int      |  Capacidade do inventário   |  NOT NULL |   -   |
+| quantidadeOuro      |     int      | Quantidade de ouro do personagem     |  NOT NULL |   -   |
 ---
 ### **Sala**
 #### Descrição: Entidade que armazena os dados das salas do jogo.

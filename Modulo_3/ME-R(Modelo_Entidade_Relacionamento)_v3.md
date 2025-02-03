@@ -33,13 +33,13 @@
 - **Boss:** idMonstro, nomeMonstro, vidaMonstro, danoMonstro, defMonstro, mulBoss, idItem, fraseBoss, qntXp,id Regiao  
 - **Save:** idUsuario, idPersonagem  
 - **Classe:** idClasse, nomeClasse, mulFisico, mulMagico  
-- **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idSala, xp, nivel, idClasse, quantidadeOuro
+- **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idSala, xp, nivel, idClasse
 - **Habilidade:** idHabilidade, nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown, idClasse  
-- **Inventario:** idPersonagem, espacoDisponivel, capacidade
+- **Inventario:** idPersonagem, espacoDisponivel, capacidade, quantidadeOuro
 - **IntanciaItem:** idInstaciaItem, idItem, idItemSala, quantidadeItem, equipado
 - **Sala:** idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste, idRegiao
 - **Regiao:** idRegiao, nomeRegiao, descricaoRegiao
-- **Item:** idItem, nomeItem, precoItem, tipoItem, raridade  
+- **Item:** idItem, nomeItem, precoItem, tipoItem, raridade
 - **Consumivel:** idItem, nomeItem, precoItem, raridade, incrementoVidaAtual, incrementoStaminaAtual  
 - **Equipavel:** idItem, nomeItem, precoItem, raridade,  incrementoVidaBase, incrementoDefesa, mulFisico, mulMagico 
 - **Missao:** idMissao, nomeMissao, descricaoMissao, idMissaoSeguinte, xpRecompensa, idItemRecompensa, quatidadeOuro
