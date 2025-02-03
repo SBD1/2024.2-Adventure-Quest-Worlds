@@ -123,7 +123,8 @@ CREATE TABLE IF NOT EXISTS Equipavel (
 CREATE TABLE IF NOT EXISTS InstanciaItem (
     idInstanciaItem INT PRIMARY KEY,
     idItem INT REFERENCES Item(idItem) ON DELETE CASCADE,
-    idItemSalas INT REFERENCES Sala(idSala) ON DELETE SET NULL,
+    idSalas INT REFERENCES Sala(idSala) ON DELETE SET NULL,
+    idPersonagem INT REFERENCES Personagem(idPersonagem) ON DELETE CASCADE,
     quantidadeItem INT NOT NULL,
     equipado BOOLEAN NOT NULL
 );
