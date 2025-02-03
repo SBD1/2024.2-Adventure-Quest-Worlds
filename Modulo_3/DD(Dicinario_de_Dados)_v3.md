@@ -115,6 +115,8 @@
 |  idItem         |     int      |    Identificador do item da instância |  NOT NULL |  FK  |
 |  quantidadeItem    |     int      |    Quantidade de itens do personagem     |  NOT NULL |   -   |
 |  equipado    |    bool     |    Se o item está equipado      |  NOT NULL |   -   |
+|  idSala       |     int      |    Identificador da sala onde o item está |  NOT NULL |  FK  |
+|  idPersonagem |     int      |    Identificador do personagem dono do item |  NOT NULL |  FK  |
 
 ---
 ### **Item**

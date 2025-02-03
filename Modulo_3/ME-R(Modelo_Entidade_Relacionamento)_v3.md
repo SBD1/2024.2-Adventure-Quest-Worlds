@@ -36,7 +36,7 @@
 - **Personagem:** idPersonagem, nomePersonagem, staminaAtualPersonagem, vidaAtualPersonagem, staminaBasePersonagem, vidaBasePersonagem, defensePersonagem, ataqueFisico, ataqueMagico, idSala, xp, nivel, idClasse
 - **Habilidade:** idHabilidade, nomeHabilidade, danoFisico, danoMagico, custoStamina, custoCooldown, idClasse  
 - **Inventario:** idPersonagem, espacoDisponivel, capacidade, quantidadeOuro
-- **IntanciaItem:** idInstaciaItem, idItem, idItemSala, quantidadeItem, equipado
+- **IntanciaItem:** idInstaciaItem, idItem, idItemSala, quantidadeItem, equipado, idSala, idPersonagem
 - **Sala:** idSala, nomeSala, salaNorte, salaSul, salaLeste, salaOeste, idRegiao
 - **Regiao:** idRegiao, nomeRegiao, descricaoRegiao
 - **Item:** idItem, nomeItem, precoItem, tipoItem, raridade
