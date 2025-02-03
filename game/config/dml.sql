@@ -111,7 +111,7 @@ INSERT INTO Catalogo (idLoja, idItem) VALUES
     (2, 3),
     (2, 4),
     (2, 5)
-;
+ON CONFLICT (idLoja, idItem) DO NOTHING;
 
 INSERT INTO Missao (idMissao, nomeMissao, descricaoMissao, xpRecompensa, idItemRecompensa, idMissaoSeguinte, quantidadeOuro) VALUES
     (1, 'Missão Inicial', 'Mate 3 monstros', 100, 1, 2, 50),
@@ -126,5 +126,3 @@ INSERT INTO ObjetivoMissao (idObjetivo, idMissao, descricaoObjetivo, quantidadeM
     (3, 3, 'Mate 10 monstros', 10, 3, NULL),
     (4, 4, 'Mate o boss', 1, 12, NULL)
 ON CONFLICT (idObjetivo) DO NOTHING;
-
-
