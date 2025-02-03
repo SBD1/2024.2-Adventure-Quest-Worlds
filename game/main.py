@@ -8,6 +8,17 @@ from math import floor
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def colmuns():
+    return os.get_terminal_size().columns
+
+def lines():
+    return os.get_terminal_size().lines
+
+def invalid():
+    print(colmuns() * '-')
+    print("Opção inválida!".center(colmuns()))
+    print(colmuns() * '-')
+
 def selecionar_save(userId):
     print(userId)
 
@@ -56,47 +67,188 @@ def get_mobs_sala(cur, salaAtual):
 
     return mobs
     
+def get_lojas(cur, salaAtual):
+    cur.execute(f"SELECT * FROM Loja WHERE idsala = %s;",(salaAtual,))
+    lojas = cur.fetchall()
+
+    if not lojas:
+        return None
+    
+    return lojas
+
+def status(cur, personagem_atual):
+    sala_info = get_sala(cur, personagem_atual['idsala'])
+    print(f"Você está na sala {sala_info['nomesala']}\n\n")
+
+def mover(conn, cur, personagem_atual):
+    sala_info = get_sala(cur, personagem_atual['idsala'])
+    opcoes_mover = {}
+    if sala_info['salanorte']:
+        opcoes_mover['norte'] = 'Mover para o norte'
+    if sala_info['salasul']:
+        opcoes_mover['sul'] = 'Mover para o sul'
+    if sala_info['salaleste']:
+        opcoes_mover['leste'] = 'Mover para o leste'
+    if sala_info['salaoeste']:
+        opcoes_mover['oeste'] = 'Mover para o oeste'
+    opcoes_mover['voltar'] = 'Voltar para o menu principal'
+
+    print("Opções:\n")
+    for k,v in opcoes_mover.items():
+        if k == 'voltar':
+            print(f"\n[{k}] - {v}\n")
+        else:
+            print(f"[{k}] - {v}")
         
+    direcao = input("Digite a direção que deseja ir: ")
+    if not direcao in opcoes_mover.keys():
+        clear()
+        invalid()
+        mover(conn, cur, personagem_atual)
+    elif direcao == 'voltar':
+        clear()
+        return
+    else:
+        print(100*"=")
+        print("\n")
+        mover_personagem(conn, cur, personagem_atual['idpersonagem'], sala_info[f'sala{direcao}'])
+        clear()
+
+def ver_inventario(cur, personagemId):
+    cur.execute(f"SELECT * FROM inventario WHERE idpersonagem = %s;",(personagemId,))
+    inventario = cur.fetchall()[0]
+    print(colmuns()*"=")
+    print(f"Capacidade: {inventario['capacidade']}")
+    print(f"Espaço disponível: {inventario['espacodisponivel']}")
+    print(f"Quantidade de ouro: {inventario['quantidadeouro']}")
+    print(colmuns()*"=")
+    opcoes = {
+        "listar" : "Listar seus itens",
+        "fechar" : "Fechar o inventário"
+    }
+
+    for k,v in opcoes.items():
+        print(f"[{k}] - {v}")
+    choice = input("Escolha uma das opções: ")
+
+    if not choice in opcoes:
+        clear()
+        invalid()
+        ver_inventario(cur,personagemId)
+    # Tem que implementar a listagem de itens para permitir equipar
+    elif choice == "fechar":
+        clear()
+        return
+
+def ver_lojas(lojas):
+    opcoes = dict()
+    for i, loja in enumerate(lojas):
+        opcoes[str(i)] = loja['nomeloja']
+    
+    opcoes['voltar'] = 'Voltar para o menu principal'
+    
+    print("Lojas disponíveis: \n")
+    
+    for k,v in opcoes.items():
+        if k == 'voltar':
+            print(f"\n[{k}] - {v}\n")
+        else:
+            print(f"[{k}] - {v}")
+    
+    choice = input("Escolha a loja que deseja entrar: ")
+
+    if not choice in opcoes:
+        clear()
+        invalid()
+        ver_lojas(lojas)
+    elif choice == 'voltar':
+        clear()
+        return
+    else:
+        clear()
+        # ainda tem que implementar a parte da compra da loja aqui
+        print("Implementação da loja")
+        return
+
+def selecionar_monstro(mobs):
+    opcoes = dict()
+    for i, mob in enumerate(mobs):
+        opcoes[str(i)] = mob['nomemonstro']
+    
+    opcoes['voltar'] = 'Voltar para o menu principal'
+
+    print("Monstros na sala atual: \n")
+    for k,v in opcoes.items():
+        if k == 'voltar':
+            print(f"\n[{k}] - {v}\n")
+        else:
+            print(f"[{k}] - {v}")
+    
+    choice = input("Escolha o monstro que deseja lutar: ")
+
+    if not choice in opcoes:
+        clear()
+        invalid()
+        selecionar_monstro(mobs)
+    elif choice == 'voltar':
+        clear()
+        return
+    else:
+        clear()
+        # chamada a função de luta do bruno 
+        print("Implementação da luta")
+        return
+
+                
 def iniciar_game(personagemId, conn, cur):
     clear()
-
-    cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
-    personagem_atual = cur.fetchall()[0]
 
     while True:
         cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
         personagem_atual = cur.fetchall()[0]
-        sala_info = get_sala(cur, personagem_atual['idsala'])
-        print(f"Você está na sala {sala_info['nomesala']}:\n\n")  
+
+        cur.execute(f"SELECT * FROM personagem WHERE idPersonagem = %s;",(personagemId,))
+        status(cur, personagem_atual)
+
+        mobs = get_mobs_sala(cur, personagem_atual['idsala'])
+        lojas = get_lojas(cur, personagem_atual['idsala'])
 
         opcoes = {}
-        if sala_info['salanorte']:
-            opcoes['norte'] = 'Mover para o norte'
-        if sala_info['salasul']:
-            opcoes['sul'] = 'Mover para o sul'
-        if sala_info['salaleste']:
-            opcoes['leste'] = 'Mover para o leste'
-        if sala_info['salaoeste']:
-            opcoes['oeste'] = 'Mover para o oeste'
+        if mobs:
+            opcoes['lutar'] = 'Lutar com um monstro'
+        if lojas:
+            opcoes['loja'] = 'Ir para uma loja'
 
-        print("Opções:\n")
+        opcoes['inventario'] = 'Ver inventário'
+        opcoes['mover'] = 'Mover para outra sala'
+        opcoes['sair'] = 'Sair do jogo'
+
+        print("Ações possíveis: \n")
         for k,v in opcoes.items():
-            print(f"[{k}] - {v}")
+            if k == 'sair':
+                print(f"\n[{k}] - {v}\n")
+            else:
+                print(f"[{k}] - {v}")
         
-        print("[0] - Sair do jogo \n")
-        
-        direcao = input("Digite a direção que deseja ir: ")
-        if direcao == '0':
-            sair()
-        elif not direcao in opcoes.keys():
+        escolha = input("Digite a ação que deseja realizar: ")
+        if not escolha in opcoes.keys():
             clear()
-            print(100* '-')
-            print("Opção inválida!")
-            print(100* '-')
-        else:
-            print(100*"=")
-            print("\n")
-            mover_personagem(conn, cur, personagemId, sala_info[f'sala{direcao}'])
+            invalid()
+        elif escolha == 'sair':
+            clear()
+            sair()
+        elif escolha == 'mover':
+            clear()
+            mover(conn, cur, personagem_atual)
+        elif escolha == 'inventario':
+            clear()
+            ver_inventario(cur,personagemId)
+        elif escolha == 'lutar':
+            clear()
+            selecionar_monstro(mobs)
+        elif escolha == 'loja':
+            clear()
+            ver_lojas(lojas)
 
 def login(conn, cur):
     clear()
@@ -105,7 +257,7 @@ def login(conn, cur):
         '2': "Cadastrar",
         '0': "Sair"
     }
-    print(name)
+    print(name.center(colmuns()))
     print("Seja bem-vindo ao Adventure Quest World!")
     while True:
         chosen_option = input("Escolha uma opção:\n[1] - Login\n[2] - Cadastrar\n[0] - Sair\n")
@@ -113,9 +265,7 @@ def login(conn, cur):
             clear()
             print(name)
             print("Seja bem-vindo ao Adventure Quest World!")
-            print(100* '-')
-            print("Opção inválida!")
-            print(100* '-')
+            invalid()
         
         elif chosen_option == '0':
             sair()
@@ -206,9 +356,7 @@ def selecionar_classe(cur):
         
         if escolha < 0 or escolha >= len(classes):
             clear()
-            print(100* '-')
-            print("Opção inválida!")
-            print(100* '-')
+            invalid()
         else:
             return classes[escolha]
 
@@ -231,11 +379,11 @@ def selecionar_save(userId, cur, conn):
             else:
                 print(f"[{i}] - {save['nomepersonagem']}")
         
-        escolha = int(input("Digite o número do save que deseja: "))
-        if escolha < 0 or escolha >= len(saves):
+        escolha = input("Digite o número do save que deseja: ")
+        if not escolha.isdigit() or int(escolha) < 0 or int(escolha) >= len(saves):
             clear()
-            print("Opção inválida!")
-        elif saves[escolha] == None:
+            invalid()
+        elif saves[int(escolha)] == None:
             clear()
             nome = input("Digite o nome do personagem: ")
             classe = selecionar_classe(cur)
@@ -244,7 +392,7 @@ def selecionar_save(userId, cur, conn):
 
             return personagemId
         else:
-            return saves[escolha]['idpersonagem']            
+            return saves[int(escolha)]['idpersonagem']            
 
 def main():
     conn = get_connection()

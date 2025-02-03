@@ -97,3 +97,18 @@ INSERT INTO instanciaMonstro (idInstanciaMonstro, idMonstro, vidaAtual, idSala) 
     (11, 11, 1000, 3)
 ON CONFLICT (idInstanciaMonstro) DO NOTHING;
 
+
+INSERT INTO Loja (idLoja, idSala, nomeLoja) VALUES
+    (1, 1, 'Loja de Poções'),
+    (2, 1, 'Loja de Equipamentos')
+ON CONFLICT (idLoja) DO NOTHING;
+
+INSERT INTO Catalogo (idLoja, idItem) VALUES
+    (1, 1),
+    (1, 2),
+    (1, 6),
+    (2, 3),
+    (2, 4),
+    (2, 5)
+ON CONFLICT (idLoja, idItem) DO NOTHING;
+
