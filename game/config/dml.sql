@@ -1,4 +1,4 @@
-INSERT INTO classe (idClasse, nomeClasse, mulFisico, mulMagico) VALUES
+INSERT INTO Classe (idClasse, nomeClasse, mulFisico, mulMagico) VALUES
     (1,'Guerreiro', 1.5, 0.5),
     (2,'Mago', 0.6, 1.8),
     (3,'Arqueiro', 1.2, 0.8),
@@ -58,13 +58,13 @@ INSERT INTO Habilidade (idHabilidade, nomeHabilidade, danoFisico, danoMagico, cu
     (4,'Golpe Mortal', 60, 0, 50, 10, 4)
 ON CONFLICT (idhabilidade) DO NOTHING;
 
-INSERT INTO Item (idItem, nomeItem, tipoItem, precoItem) VALUES
-    (1,'Poção de Vida','False',10),
-    (2,'Poção de Stamina','False',15),
-    (3,'Espada Longa','True',100),
-    (4,'Armadura de Placas','True',200),
-    (5,'Arco de Ouro','True',500),
-    (6,'Elixir de Cura','False',10)
+INSERT INTO Item (idItem, nomeItem, tipoItem, precoItem,raridadeItem) VALUES
+    (1,'Poção de Vida','False',10,1),
+    (2,'Poção de Stamina','False',15,1),
+    (3,'Espada Longa','True',100,7),
+    (4,'Armadura de Placas','True',200,4),
+    (5,'Arco de Ouro','True',500,10),
+    (6,'Elixir de Cura','False',10,1)
 ON CONFLICT (idItem) DO NOTHING;
 
 INSERT INTO Consumivel (idItem, incrementoVidaAtual, incrementoStaminaAtual) VALUES
@@ -83,7 +83,7 @@ INSERT INTO Boss (idMonstro, idItem, mulBoss,fraseBoss) VALUES
     (12, 1, 1.5, 'Slc n compensa')
 ON CONFLICT (idMonstro) DO NOTHING;
 
-INSERT INTO instanciaMonstro (idInstanciaMonstro, idMonstro, vidaAtual, idSala) VALUES
+INSERT INTO InstanciaMonstro (idInstanciaMonstro, idMonstro, vidaAtual, idSala) VALUES
     (1, 1, 1640, 1),
     (2, 2, 1640, 1),  
     (3, 3, 400, 1),  
@@ -94,7 +94,8 @@ INSERT INTO instanciaMonstro (idInstanciaMonstro, idMonstro, vidaAtual, idSala) 
     (8, 8, 1000, 3),
     (9, 9, 1000, 3),
     (10, 10, 1000, 3),
-    (11, 11, 1000, 3)
+    (11, 11, 1000, 3),
+    (12, 12, 4000, 9)
 ON CONFLICT (idInstanciaMonstro) DO NOTHING;
 
 
@@ -110,5 +111,20 @@ INSERT INTO Catalogo (idLoja, idItem) VALUES
     (2, 3),
     (2, 4),
     (2, 5)
-ON CONFLICT (idLoja, idItem) DO NOTHING;
+;
+
+INSERT INTO Missao (idMissao, nomeMissao, descricaoMissao, xpRecompensa, idItemRecompensa, idMissaoSeguinte, quantidadeOuro) VALUES
+    (1, 'Missão Inicial', 'Mate 3 monstros', 100, 1, 2, 50),
+    (2, 'Missão de Exploração', 'Va para a sala 2', 200, 2, 3, 100),
+    (3, 'Missão de Caça', 'Mate 10 monstros', 300, 3, 4, 150),
+    (4, 'Missão Final', 'Mate o boss', 500, 4, NULL, 200)
+ON CONFLICT (idMissao) DO NOTHING;
+
+INSERT INTO ObjetivoMissao (idObjetivo, idMissao, descricaoObjetivo, quantidadeMeta, idInstanciaMonstro, idSala) VALUES
+    (1, 1, 'Mate 3 monstros', 3,  1, NULL),
+    (2, 2, 'Va para a sala 2', 1, NULL, 2),
+    (3, 3, 'Mate 10 monstros', 10, 3, NULL),
+    (4, 4, 'Mate o boss', 1, 12, NULL)
+ON CONFLICT (idObjetivo) DO NOTHING;
+
 

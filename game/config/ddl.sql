@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS Item (
     idItem INT PRIMARY KEY,
     nomeItem VARCHAR(50) NOT NULL,
     tipoItem BOOLEAN NOT NULL,
-    precoItem INT NOT NULL
+    precoItem INT NOT NULL,
+    raridadeItem INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Usuario (
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS Sala (
     salaOeste INT
 );
 
-CREATE TABLE IF NOT EXISTS instanciaMonstro (
+CREATE TABLE IF NOT EXISTS InstanciaMonstro (
     idInstanciaMonstro INT PRIMARY KEY,
     idMonstro INT REFERENCES Monstro(idMonstro) ON DELETE CASCADE,
     vidaAtual INT NOT NULL,
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS Personagem (
 
 CREATE TABLE IF NOT EXISTS Save (
     idUsuario INT REFERENCES Usuario(idUsuario) ON DELETE CASCADE,
-    idPersonagem INT REFERENCES Personagem(idPersonagem) ON DELETE CASCADE,
+    idPersonagem INT REFERENCES Personagem(idPersonagem) ON DELETE SET NULL,
     PRIMARY KEY (idUsuario, idPersonagem)
 );
 
@@ -122,6 +123,7 @@ CREATE TABLE IF NOT EXISTS Equipavel (
 CREATE TABLE IF NOT EXISTS InstanciaItem (
     idInstanciaItem INT PRIMARY KEY,
     idItem INT REFERENCES Item(idItem) ON DELETE CASCADE,
+    idItemSalas INT REFERENCES Sala(idSala) ON DELETE SET NULL,
     quantidadeItem INT NOT NULL,
     equipado BOOLEAN NOT NULL
 );
@@ -131,8 +133,9 @@ CREATE TABLE IF NOT EXISTS Missao (
     nomeMissao VARCHAR(50) NOT NULL,
     descricaoMissao VARCHAR(200) NOT NULL,
     xpRecompensa INT NOT NULL,
-    idItem INT REFERENCES Item(idItem) ON DELETE SET NULL,
-    idMissaoSeguinte INT REFERENCES Missao(idMissao) ON DELETE SET NULL
+    idItemRecompensa INT REFERENCES Item(idItem) ON DELETE SET NULL,
+    idMissaoSeguinte INT REFERENCES Missao(idMissao) ON DELETE SET NULL,
+    quantidadeOuro INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ObjetivoMissao (
@@ -140,14 +143,13 @@ CREATE TABLE IF NOT EXISTS ObjetivoMissao (
     idMissao INT REFERENCES Missao(idMissao) ON DELETE CASCADE,
     descricaoObjetivo VARCHAR(200) NOT NULL,
     quantidadeMeta INT NOT NULL,
-    idMonstro INT REFERENCES Monstro(idMonstro) ON DELETE SET NULL,
-    idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL,
-    idRegiao INT REFERENCES Regiao(idRegiao) ON DELETE SET NULL
+    idInstanciaMonstro INT REFERENCES InstanciaMonstro(idInstanciaMonstro) ON DELETE SET NULL,
+    idSala INT REFERENCES Sala(idSala) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS ProgressoMissao (
-    idPersonagem INT REFERENCES Personagem(idPersonagem) ON DELETE CASCADE,
-    idObjetivoMissao INT REFERENCES ObjetivoMissao(idObjetivo) ON DELETE CASCADE,
+    idPersonagem INT PRIMARY KEY REFERENCES Personagem(idPersonagem) ON DELETE CASCADE,
+    idObjetivoMissao INT REFERENCES ObjetivoMissao(idObjetivo) ON DELETE SET NULL,
     concluida BOOLEAN NOT NULL,
     progressoObjetivo INT NOT NULL 
 );
@@ -160,6 +162,6 @@ CREATE TABLE IF NOT EXISTS Loja (
 
 CREATE TABLE IF NOT EXISTS Catalogo (
     idLoja INT REFERENCES Loja(idLoja) ON DELETE CASCADE,
-    idItem INT REFERENCES Item(idItem) ON DELETE CASCADE,
-    PRIMARY KEY (idLoja, idItem)
+    idItem INT REFERENCES Item(idItem) ON DELETE SET NULL,
+    PRIMARY KEY (idLoja, idItem) 
 );
