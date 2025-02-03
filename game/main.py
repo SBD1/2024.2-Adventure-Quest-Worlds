@@ -151,11 +151,13 @@ def ver_itens_loja(cur, idloja, personagemId):
     print("Itens disponíveis na loja:\n")
     for i, item in enumerate(itens):
         print(f"[{i}] - {item['nomeitem']} - Preço: {item['precoitem']} - Quantidade: {item['quantidadeitem']}")
-
+    print("\n")
+    
     opcoes = {str(i): item for i, item in enumerate(itens)}
     opcoes['voltar'] = 'Voltar para o menu principal'
 
     choice = input("Escolha o item que deseja comprar: ")
+
 
     if choice not in opcoes:
         clear()
@@ -168,7 +170,7 @@ def ver_itens_loja(cur, idloja, personagemId):
     else:
         item = opcoes[choice]
         clear()
-        print(f"Você comprou {item['nomeitem']} por {item['precoitem']} ouro.")
+        print(f"Você comprou {item['nomeitem']} por {item['precoitem']} ouro!!\n")
 
         #diminuindo a quantidade da instanciaitem naquela loja e o ouro porem como faco para adicionar ao invetario essa instancia e ao mesmo tempo apenas diminuir a quantidade da loja
         cur.execute(f"UPDATE instanciaitem SET quantidadeitem = quantidadeitem - 1 WHERE iditem = %s;",(item['iditem'],))
@@ -202,7 +204,7 @@ def ver_lojas(lojas, cur, personagemId):
         return
     else:
         clear()
-        ver_itens_loja(cur, lojas[int(choice)]['idsala'], personagemId)
+        ver_itens_loja(cur, lojas[int(choice)]['idloja'], personagemId)
         return
 
 def selecionar_monstro(mobs):
