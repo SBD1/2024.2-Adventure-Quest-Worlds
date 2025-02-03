@@ -112,3 +112,12 @@ INSERT INTO Catalogo (idLoja, idItem) VALUES
     (2, 5)
 ON CONFLICT (idLoja, idItem) DO NOTHING;
 
+INSERT INTO instanciaitem (idInstanciaItem, idItem, quantidadeItem, equipado) VALUES
+    (1, 1, 5, FALSE),
+    (2, 2, 5, FALSE),
+    (3, 6, 5, FALSE),
+    (4, 3, 5, FALSE),
+    (5, 4, 5, FALSE),
+    (6, 5, 5, FALSE)
+ON CONFLICT (idInstanciaItem) DO NOTHING;
+

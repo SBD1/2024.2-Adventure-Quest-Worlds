@@ -140,7 +140,43 @@ def ver_inventario(cur, personagemId):
         clear()
         return
 
-def ver_lojas(lojas):
+def ver_itens_loja(cur, idloja, personagemId):
+    cur.execute("SELECT * FROM Catalogo JOIN Item ON Catalogo.idItem = Item.idItem JOIN instanciaitem ON instanciaitem.iditem = Item.iditem WHERE idloja = %s;", (idloja,))
+    itens = cur.fetchall()
+
+    if not itens:
+        print("Nenhum item disponível nesta loja.")
+        return
+
+    print("Itens disponíveis na loja:\n")
+    for i, item in enumerate(itens):
+        print(f"[{i}] - {item['nomeitem']} - Preço: {item['precoitem']} - Quantidade: {item['quantidadeitem']}")
+
+    opcoes = {str(i): item for i, item in enumerate(itens)}
+    opcoes['voltar'] = 'Voltar para o menu principal'
+
+    choice = input("Escolha o item que deseja comprar: ")
+
+    if choice not in opcoes:
+        clear()
+        invalid()
+        ver_itens_loja(cur, idloja)
+
+    elif choice == 'voltar':
+        clear()
+        return
+    else:
+        item = opcoes[choice]
+        clear()
+        print(f"Você comprou {item['nomeitem']} por {item['precoitem']} ouro.")
+
+        #diminuindo a quantidade da instanciaitem naquela loja e o ouro porem como faco para adicionar ao invetario essa instancia e ao mesmo tempo apenas diminuir a quantidade da loja
+        cur.execute(f"UPDATE instanciaitem SET quantidadeitem = quantidadeitem - 1 WHERE iditem = %s;",(item['iditem'],))
+        cur.execute(f"UPDATE inventario SET quantidadeouro = quantidadeouro - %s WHERE idpersonagem = %s;",(item['precoitem'],personagemId))
+        return
+
+
+def ver_lojas(lojas, cur, personagemId):
     opcoes = dict()
     for i, loja in enumerate(lojas):
         opcoes[str(i)] = loja['nomeloja']
@@ -166,8 +202,7 @@ def ver_lojas(lojas):
         return
     else:
         clear()
-        # ainda tem que implementar a parte da compra da loja aqui
-        print("Implementação da loja")
+        ver_itens_loja(cur, lojas[int(choice)]['idsala'], personagemId)
         return
 
 def selecionar_monstro(mobs):
@@ -248,7 +283,7 @@ def iniciar_game(personagemId, conn, cur):
             selecionar_monstro(mobs)
         elif escolha == 'loja':
             clear()
-            ver_lojas(lojas)
+            ver_lojas(lojas, cur, personagemId)
 
 def login(conn, cur):
     clear()
